@@ -1,0 +1,24 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+    <title>Author Detail</title>
+{% endblock %}
+
+{% block content %}
+    <h2>Author: {{ author.last_name }}, {{ author.first_name }}</h2>
+    <p>{{ author.date_of_birth }} - {{ author.date_of_death }}</p>
+
+    <div>
+        <h3>Books</h3>
+        <dl>
+            {% for book in author.book_set.all %}
+                <dt>
+                    <a href="{% url 'book-detail' book.pk %}">{{ book }}</a>
+                    ({{ book.bookinstance_set.all.count }})
+                    <dd>{{ book.summary }}</dd>
+                </dt>
+            {% endfor %}
+        </dl>
+
+    </div>
+{% endblock %}
