@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    <h2>Transactions</h2>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Book Title</th>
+            <th>Borrower</th>
+            <th>Date Borrowed</th>
+            <th>Status</th>
+        </tr>
+        
+        {% for bookinst in bookinstance_list %}
+            <tr>
+                <td>{{ bookinst.book.title }}</td>
+                <td>{{ bookinst.borrower.username }}</td>
+                <td>{{ bookinst.due_back }}</td>
+                <td>{{ bookinst.status }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
