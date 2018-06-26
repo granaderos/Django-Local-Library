@@ -38,7 +38,12 @@
                                             {# <li><a href="{% url 'author-update' %}">Update Author</a></li> #}
                                             {# <li><a href="{% url 'author-delete' %}">Delete Author</a></li> #}
                                         </ul>
-                                    <li><a href="{% url 'transactions' %}">Transactions</a></li>
+                                    <li>
+                                        <a href="{% url 'transactions' %}">Transactions</a>
+                                        <ul>
+                                            <li><a href="{% url 'transaction-create' %}">New Transaction</a></li>
+                                        </ul>
+                                    </li>
                                 {% else %}                                    
                                     <li><a href="{% url 'my-borrowed' %}">My Borrowed</a></li>
                                 {% endif %}

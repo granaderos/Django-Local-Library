@@ -132,3 +132,9 @@ class BookUpdate(LoginRequiredMixin, edit.UpdateView):
 class BookDelete(LoginRequiredMixin, edit.DeleteView):
     model = Book
     success_url = reverse_lazy('books')
+
+
+class BookInstanceCreate(LoginRequiredMixin, edit.CreateView):
+    model = BookInstance
+    fields = '__all__'
+    success_url = reverse_lazy('transactions')
