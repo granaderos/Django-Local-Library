@@ -17,7 +17,12 @@
                 <td>{{ bookinst.book.title }}</td>
                 <td>{{ bookinst.borrower.username }}</td>
                 <td>{{ bookinst.due_back }}</td>
-                <td>{{ bookinst.status }}</td>
+                <td>
+                    {{ bookinst.status }}
+                    {% if bookinst.status == 'o' %}
+                        <a href="{% url 'renew-book-librarian' bookinst.id %}">RENEW</a>
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
     </table>
