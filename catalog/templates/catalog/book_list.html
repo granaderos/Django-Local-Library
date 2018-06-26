@@ -9,6 +9,11 @@
                 <li>
                     <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
                     {{ book.author }}
+                    {% if user.is_authenticated and user.is_staff %}
+                        [<a href="{% url 'book-update' book.id %}">UPDATE</a> | 
+                         <a href="{% url 'book-delete' book.id %}">DELETE</a>]
+                    {% endif %}
+
                 </li>
             {% endfor %}
         </ul>

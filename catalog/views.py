@@ -57,7 +57,7 @@ def renew_book_librarian(request, pk):
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date,})
 
-    return render(request, 'book_renew_librarian.html', {'form': form, 'bookinst': book_inst})
+    return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst': book_inst})
 
 class BookListView(generic.ListView):
     model = Book
@@ -69,7 +69,7 @@ class BookListView(generic.ListView):
 
 class BookDetailView(LoginRequiredMixin, generic.DetailView):
     model = Book
-    template_name = 'book_detail.html'
+    template_name = 'catalog/book_detail.html'
 
 
 class AuthorListView(generic.ListView):
@@ -82,12 +82,12 @@ class AuthorListView(generic.ListView):
 
 class AuthorDetailView(LoginRequiredMixin, generic.DetailView):
     model = Author
-    template_name = 'author_detail.html'
+    template_name = 'catalog/author_detail.html'
 
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     model = BookInstance
-    template_name = 'bookinstance_list_borrowed_user.html'
+    template_name = 'catalog/bookinstance_list_borrowed_user.html'
     paginate_by = 2
 
     def get_queryset(self):
@@ -96,24 +96,39 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
 class TransactionsListView(LoginRequiredMixin, generic.ListView):
     model = BookInstance
-    template_name = 'transactions.html'
+    template_name = 'catalog/transactions.html'
     paginate_by = 2
 
     def get_queryset(self):
         return BookInstance.objects.all()
 
 
-class AuthorCreate(edit.CreateView):
+class AuthorCreate(LoginRequiredMixin, edit.CreateView):
     model = Author
     fields = '__all__'
     #initial = {'date_of_death': '05/01/2018'}
 
 
-class AuthorUpdate(edit.UpdateView):
+class AuthorUpdate(LoginRequiredMixin, edit.UpdateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
 
 
-class AuthorDelete(edit.DeleteView):
+class AuthorDelete(LoginRequiredMixin, edit.DeleteView):
     model = Author
     success_url = reverse_lazy('authors')
+
+
+class BookCreate(LoginRequiredMixin, edit.CreateView):
+    model = Book
+    fields = '__all__'
+
+
+class BookUpdate(LoginRequiredMixin, edit.UpdateView):
+    model = Book
+    fields = '__all__'
+
+
+class BookDelete(LoginRequiredMixin, edit.DeleteView):
+    model = Book
+    success_url = reverse_lazy('books')
