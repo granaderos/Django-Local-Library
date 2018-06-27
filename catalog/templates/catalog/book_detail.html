@@ -3,8 +3,8 @@
 {% block content %}
 
     <span class="float-none">
-        [<a href="{% url 'book-update' book.id %}">UPDATE</a>]
-        [<a href="{% url 'book-delete' book.id %}">DELETE</a>]
+        [<a href="{% url 'book-update' book.id %}" title="Edit this book."><span class="fa fa-edit"></span></a>]
+        [<a href="{% url 'book-delete' book.id %}" title="Delete this book."><span class="fa fa-trash"></span></a>]
     </span>
     <h1>Title: {{ book.title }}</h1>
 

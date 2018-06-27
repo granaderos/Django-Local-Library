@@ -6,8 +6,8 @@
 
 {% block content %}
     {% if user.is_authenticated and user.is_staff %}
-        [<a href="{% url 'author-update' author.id %}"><span class="glyphicon glyphicon-edit"></span>UPDATE</a>]
-        [<a href="{% url 'author-delete' author.id %}">DELETE</a>]
+        <a href="{% url 'author-update' author.id %}" data-toggle="tooltip" data-placement="top" title="Update author information"><span class="fa fa-user-edit"></span></a> |
+        <a href="{% url 'author-delete' author.id %}" title="Delete author."><span class="fa fa-trash"></span></a> 
     {% endif %}
     <h2>Author: {{ author.last_name }}, {{ author.first_name }}</h2>
     <p>{{ author.date_of_birth }} - {{ author.date_of_death }}</p>
