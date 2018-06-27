@@ -64,7 +64,7 @@ class BookListView(generic.ListView):
     context_object_name = 'book_list'
     queryset = Book.objects.all()
     template_name = 'book_list.html'
-    paginate_by = 2
+    paginate_by = 5
 
 
 class BookDetailView(LoginRequiredMixin, generic.DetailView):

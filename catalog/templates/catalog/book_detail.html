@@ -2,6 +2,10 @@
 
 {% block content %}
 
+    <span class="float-none">
+        [<a href="{% url 'book-update' book.id %}">UPDATE</a>]
+        [<a href="{% url 'book-delete' book.id %}">DELETE</a>]
+    </span>
     <h1>Title: {{ book.title }}</h1>
 
     <p><strong>Author: </strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>

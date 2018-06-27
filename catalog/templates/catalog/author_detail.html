@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block content %}
+    {% if user.is_authenticated and user.is_staff %}
+        [<a href="{% url 'author-update' author.id %}"><span class="glyphicon glyphicon-edit"></span>UPDATE</a>]
+        [<a href="{% url 'author-delete' author.id %}">DELETE</a>]
+    {% endif %}
     <h2>Author: {{ author.last_name }}, {{ author.first_name }}</h2>
     <p>{{ author.date_of_birth }} - {{ author.date_of_death }}</p>
 
