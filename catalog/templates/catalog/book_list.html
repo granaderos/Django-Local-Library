@@ -16,8 +16,8 @@
                     <td>{{ book.author }}</td>
                     {% if user.is_authenticated and user.is_staff %}
                         <td>
-                            <a href="{% url 'book-update' book.id %}" title="Edit book information."><span class="fa fa-edit"></span></a> | 
-                            <a href="{% url 'book-delete' book.id %}" title="Delete this book."><span class="fa fa-trash-alt"></span></a>
+                            <a href="{% url 'book-update' book.id %}" data-toggle="tooltip" data-placement="top" title="Edit book information."><span class="fa fa-edit"></span></a> | 
+                            <a href="{% url 'book-delete' book.id %}" data-toggle="tooltip" data-placement="bottom" title="Delete this book."><span class="fa fa-trash-alt"></span></a>
                         </td>
                     {% endif %}
 

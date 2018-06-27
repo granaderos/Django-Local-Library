@@ -13,10 +13,15 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome/css/all.css' %}" />
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script                  src="{% static 'js/script.js' %}"></script>
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/gijgo.min.css' %}" />
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/gijgo.min.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/script.js' %}"></script>
     <body>
+        <div class="alert alert-info">
+            <h1>Local Library</h1>
+        </div>
         <div style="margin-top: 20px;" class="container-fluid">
             <div class="row">
                 <div class="col-sm-2">
@@ -64,19 +69,38 @@
 
                     {% block pagination %}
                         {% if is_paginated %}
-                            <div class="pagination">
-                                <span class="page-links">
-                                    {% if page_obj.has_previous %}
-                                        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                            <ul class="pagination justify-content-center">
+                                    <!-- {% if page_obj.has_previous %}
+                                        <a class="btn btn-primary" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
                                     {% endif %}
                                     <span class="page-current">
                                         Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
                                     </span>
                                     {% if page_obj.has_next %}
-                                        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                                        <a class="btn btn-primary" href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                                    {% endif %} -->
+
+                                    {% if page_obj.has_previous %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                                    {% else %}
+                                        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
                                     {% endif %}
-                                </span>
-                            </div>
+                                    {% for i in paginator.page_range %}
+                                        {% if page_obj.number == i %}
+                                            <li class="page-item active">
+                                                <span class="page-link active">{{ i }}</span>
+                                                <span class="sr-only">(current)</span>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if page_obj.has_next %}
+                                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                                    {% else %}
+                                        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                                    {% endif %}
+                            </ul>
                         {% endif %}
                     {% endblock %}
                 </div>
@@ -84,3 +108,7 @@
         </div>
     </body>
 </html>
+
+<!--
+    TODO: Figure out how to display ranged page links.
+-->

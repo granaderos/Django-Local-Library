@@ -77,7 +77,7 @@ class AuthorListView(generic.ListView):
     context_object_name = 'author_list'
     queryset = Author.objects.all()
     template_name = 'author_list.html'
-    paginate_by = 2
+    paginate_by = 5
 
 
 class AuthorDetailView(LoginRequiredMixin, generic.DetailView):
@@ -88,7 +88,7 @@ class AuthorDetailView(LoginRequiredMixin, generic.DetailView):
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     model = BookInstance
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
-    paginate_by = 2
+    paginate_by = 5
 
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
@@ -97,7 +97,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 class TransactionsListView(LoginRequiredMixin, generic.ListView):
     model = BookInstance
     template_name = 'catalog/transactions.html'
-    paginate_by = 2
+    paginate_by = 5
 
     def get_queryset(self):
         return BookInstance.objects.all()
@@ -112,7 +112,7 @@ class AuthorCreate(LoginRequiredMixin, edit.CreateView):
 class AuthorUpdate(LoginRequiredMixin, edit.UpdateView):
     model = Author
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
-
+ 
 
 class AuthorDelete(LoginRequiredMixin, edit.DeleteView):
     model = Author
