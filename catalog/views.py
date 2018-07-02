@@ -11,7 +11,9 @@ from .models import Book
 from .models import Author
 from .models import BookInstance
 from .models import Genre
+from .models import Transaction
 from .forms import RenewBookForm
+from .forms import CreateTransactionForm
 
 import datetime
 # Create your views here.
@@ -59,6 +61,13 @@ def renew_book_librarian(request, pk):
 
     return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst': book_inst})
 
+def create_new_transaction(request):
+    # if request.method == 'POST':
+    form = CreateTransactionForm(request.POST)
+    
+    return render(request, 'catalog/transaction_form.html', {'form': form})
+
+
 class BookListView(generic.ListView):
     model = Book
     context_object_name = 'book_list'
@@ -86,12 +95,12 @@ class AuthorDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
-    model = BookInstance
+    model = Transaction
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
     paginate_by = 5
 
     def get_queryset(self):
-        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+        return Transaction.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
 
 
 class TransactionsListView(LoginRequiredMixin, generic.ListView):
@@ -134,7 +143,7 @@ class BookDelete(LoginRequiredMixin, edit.DeleteView):
     success_url = reverse_lazy('books')
 
 
-class BookInstanceCreate(LoginRequiredMixin, edit.CreateView):
-    model = BookInstance
-    fields = '__all__'
+class TransactionCreate(LoginRequiredMixin, edit.CreateView):
+    model = Transaction
     success_url = reverse_lazy('transactions')
+    fields = ['book_instance', 'date_borrowed', 'due_back', 'borrower']

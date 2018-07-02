@@ -23,7 +23,8 @@
                     {% if user.is_authenticated and user.is_staff %}
                         <td>
                             <a href="{% url 'author-update' author.id %}" data-toggle="tooltip" data-placement="top" title="Edit author information."><span class="fa fa-user-edit"></span></a> | 
-                            <a href="{% url 'author-delete' author.id %}" data-toggle="tooltip" data-placement="bottom" title="Delete this author."><span class="fa fa-trash-alt"></span></a>
+                            <a href="{% url 'author-delete' author.id %}" data-toggle="tooltip" data-placement="right" title="Delete this author."><span class="fa fa-trash-alt"></span></a>
+                            <!-- <span onclick="author_delete(' {{ author.id }}')" data-toggle="tooltip" data-placement="bottom" title="Delete this author."><span class="fa fa-trash-alt"></span></span> -->
                         </td>
                     {% endif %}
                 </tr>

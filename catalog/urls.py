@@ -16,5 +16,6 @@ urlpatterns = [
     path('book/create/', views.BookCreate.as_view(), name='book-create'),
     path('book/<int:pk>/update/', views.BookUpdate.as_view(), name='book-update'),
     path('book/<int:pk>/delete/', views.BookDelete.as_view(), name='book-delete'),
-    path('transaction/create/', views.BookInstanceCreate.as_view(), name='transaction-create')
+    # path('transaction/create/', views.TransactionCreate.as_view(), name='transaction-create'),
+    path('transaction/create/', views.create_new_transaction, name='transaction-create')
 ]
