@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h1>Renew: {{ trans.book_instance.book.title }}</h1>
+    <h1>Return Book: {{ trans.book_instance.book.title }}</h1>
     <p>Borrower: {{ trans.borrower.username }}</p>
     <p 
         {% if tans.is_overdue %}
@@ -16,5 +16,6 @@
         <table> {{ form }} </table>
         <input type="submit" value="Submit" />
     </form>
+
 
 {% endblock %}

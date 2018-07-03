@@ -67,11 +67,11 @@ class BookInstance(models.Model):
     def __str__(self):
         return '{0} ({1})'.format(self.book.title, self.id)
 
-    @property
-    def is_overdue(self):
-        if self.due_back and datetime.today() > self.due_back:
-            return True
-        return False
+    # @property
+    # def is_overdue(self):
+    #     if self.due_back and datetime.today() > self.due_back:
+    #         return True
+    #     return False
 
 
 class Transaction(models.Model):
@@ -80,8 +80,16 @@ class Transaction(models.Model):
     due_back = models.DateField(null=True, blank=True)
     date_returned = models.DateField(null=True, blank=True)
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True) 
-    remark = models.TextField(max_length=1000, null=True, help_text="Condition of the book when returned.")
+    remark = models.TextField(max_length=1000, null=True, blank=True, help_text="Condition of the book when returned.")
 
+    def __str__(self):
+        return 'Book Instance ID: {0}\nBorrower ID: {1}'.format(self.book_instance, self.borrower)
+
+    @property
+    def is_overdue(self):
+        if self.due_back and datetime.today() > self.due_back:
+            return True
+        return False
 
 class Author(models.Model):
     first_name = models.CharField(max_length=100)

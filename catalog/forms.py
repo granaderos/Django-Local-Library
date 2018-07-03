@@ -35,19 +35,18 @@ class CreateTransactionForm(forms.Form):
         id_title_dictionary[item['id']] = item['title']
 
     for item in book_instances:
-        #book_instances[item['id']] = id_title_dictionary[item['book']]
-        # book_choices[item['id']] = id_title_dictionary[item['book']]
         book_choices.append((item['id'], id_title_dictionary[item['book']] + ' (' + str(item['id']) + ')'))
-
-    # for key, value in book_instances:
-    #     book_inst['id'] = 
 
     users = User.objects.all().values_list('id', 'username')
 
     book = forms.ChoiceField(choices=book_choices)
     
     date_borrowed = forms.DateField(widget=forms.TextInput(attrs={'value': datetime.date.today()}))
-    due_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker'}))
+    # due_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker'}))
+    due_date = forms.DateField(widget=forms.SelectDateWidget())
     borrower = forms.ChoiceField(choices=users)
     
 
+class ReturnBookForm(forms.Form):
+    remarks = forms.CharField(widget=forms.Textarea, help_text="Enter a remark (e.i. condition of the book, etc.)")
+    date_returned = forms.DateField(widget=forms.SelectDateWidget())

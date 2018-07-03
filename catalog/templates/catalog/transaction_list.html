@@ -2,7 +2,7 @@
 
 {% block content %}
 
-    <h2>Transactions</h2>
+    <h2>Transaction History</h2>
 
     <table class="table table-striped">
         <tr>
@@ -12,26 +12,27 @@
             <th>Due Date</th>
             <th>Date Returned</th>
             <th>Status</th>
-            <th></th>
+            <th>Remarks</th>
         </tr>
         
         {% for trans in transaction_list %}
             <tr>
-                <td>{{ trans.book_instance.book.title }}</td>
+                <td>{{ trans.book_instance.book.title }}<br>{{ trans.book_instance.id }}</td>
                 <td>{{ trans.borrower.username }}</td>
                 <td>{{ trans.date_borrowed }}</td>
                 <td>{{ trans.due_back }}</td>
                 <td>
                     {% if trans.book_instance.status == 'o' %}
-                        [unreturned] 
-                        <a href="{% url 'renew-book-librarian' trans.id %}">RENEW</a>
+                        unreturned
+                    {% else %}
+                        {{ trans.date_returned }}
                     {% endif %}
                 </td>
                 <td>
-                    {% if trans.book_instance.status == 'o' %}
-                        On loan
-                    {% elif trans.book_instance.status == 'a' %}
+                    {% if trans.book_instance.status == 'a' %}
                         Available
+                    {% elif trans.book_instance.status == 'o' %}
+                        On loan
                     {% elif trans.book_instance.status == 'm' %}
                         Under maintenance
                     {% elif trans.book_instance.status == 'r' %}
@@ -39,7 +40,9 @@
                     {% endif %}    
                     
                 </td>
-                <td><a href="{% url 'return-book' trans.id %}"><span class="fa fa-undo"></span></a></td>
+                <td>
+                    {{ trans.remark }}
+                </td>
             </tr>
         {% endfor %}
     </table>

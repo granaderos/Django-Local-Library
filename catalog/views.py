@@ -7,6 +7,7 @@ from django.views import generic
 from django.views.generic import edit
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.models import User
 from .models import Book
 from .models import Author
 from .models import BookInstance
@@ -14,6 +15,7 @@ from .models import Genre
 from .models import Transaction
 from .forms import RenewBookForm
 from .forms import CreateTransactionForm
+from .forms import ReturnBookForm
 
 import datetime
 # Create your views here.
@@ -46,27 +48,58 @@ def index(request):
 
 #@permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
-    book_inst = get_object_or_404(BookInstance, pk=pk)
+    trans = get_object_or_404(Transaction, pk=pk)
 
     if request.method == 'POST':
         form = RenewBookForm(request.POST)
         if form.is_valid():
-            book_inst.due_back = form.cleaned_data['renewal_date']
-            book_inst.save()
+            trans.due_back = form.cleaned_data['renewal_date']
+            trans.save()
 
             return HttpResponseRedirect(reverse('transactions'))
     else:
         proposed_renewal_date = datetime.date.today() + datetime.timedelta(weeks=3)
         form = RenewBookForm(initial={'renewal_date': proposed_renewal_date,})
 
-    return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst': book_inst})
+    return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'trans': trans})
 
 def create_new_transaction(request):
-    # if request.method == 'POST':
+    # trans = get_object_or_404(Transaction, pk=pk)
     form = CreateTransactionForm(request.POST)
-    
-    return render(request, 'catalog/transaction_form.html', {'form': form})
+    if request.method == 'POST':
+        form = CreateTransactionForm(request.POST)
+        if form.is_valid():
+            book_instance = BookInstance.objects.get(id=form.cleaned_data['book'])
+            book_instance.status = 'o'
+            date_borrowed = form.cleaned_data['date_borrowed']
+            due_date = form.cleaned_data['due_date']
+            borrower = User.objects.get(id=form.cleaned_data['borrower'])
+            trans = Transaction.objects.create(book_instance=book_instance, date_borrowed=date_borrowed, due_back=due_date, borrower=borrower)
+            trans.save()
+            book_instance.save()
+            return HttpResponseRedirect(reverse('transactions'))
 
+    return render(request, 'catalog/create_transaction.html', {'form': form})
+
+def return_book(request, pk):
+    trans = get_object_or_404(Transaction, pk=pk)
+    book_instance = get_object_or_404(BookInstance, pk=trans.book_instance.id)
+    form = ReturnBookForm(request.POST)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            date_returned = form.cleaned_data['date_returned']
+            remarks = form.cleaned_data['remarks']
+
+            book_instance.status='a'
+            trans.date_returned = date_returned
+            trans.remark = remarks
+
+            trans.save()
+            book_instance.save()
+            return HttpResponseRedirect(reverse('transactions'))
+
+    return render(request, 'catalog/return_book.html', {'form': form, 'trans': trans})
 
 class BookListView(generic.ListView):
     model = Book
@@ -104,12 +137,22 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
 
 
 class TransactionsListView(LoginRequiredMixin, generic.ListView):
-    model = BookInstance
+    model = Transaction
     template_name = 'catalog/transactions.html'
     paginate_by = 5
 
     def get_queryset(self):
-        return BookInstance.objects.all()
+        return Transaction.objects.filter(date_returned__isnull=True)
+        # return BookInstance.objects.all()
+
+
+class TransactionHistoryListView(LoginRequiredMixin, generic.ListView):
+    model = Transaction
+    templete_name = 'catalog/transaction_history.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Transaction.objects.all().order_by('date_borrowed')
 
 
 class AuthorCreate(LoginRequiredMixin, edit.CreateView):
@@ -141,9 +184,3 @@ class BookUpdate(LoginRequiredMixin, edit.UpdateView):
 class BookDelete(LoginRequiredMixin, edit.DeleteView):
     model = Book
     success_url = reverse_lazy('books')
-
-
-class TransactionCreate(LoginRequiredMixin, edit.CreateView):
-    model = Transaction
-    success_url = reverse_lazy('transactions')
-    fields = ['book_instance', 'date_borrowed', 'due_back', 'borrower']
