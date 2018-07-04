@@ -16,6 +16,7 @@ from .models import Transaction
 from .forms import RenewBookForm
 from .forms import CreateTransactionForm
 from .forms import ReturnBookForm
+from .forms import CreateBookInstanceForm
 
 import datetime
 # Create your views here.
@@ -65,20 +66,20 @@ def renew_book_librarian(request, pk):
 
 def create_new_transaction(request):
     # trans = get_object_or_404(Transaction, pk=pk)
-    form = CreateTransactionForm(request.POST)
+    form = CreateTransactionForm(request.POST or None)
     if request.method == 'POST':
-        form = CreateTransactionForm(request.POST)
+        form = CreateTransactionForm(request.POST or None)
         if form.is_valid():
             book_instance = BookInstance.objects.get(id=form.cleaned_data['book'])
             book_instance.status = 'o'
+            book_instance.save()
+
             date_borrowed = form.cleaned_data['date_borrowed']
             due_date = form.cleaned_data['due_date']
             borrower = User.objects.get(id=form.cleaned_data['borrower'])
             trans = Transaction.objects.create(book_instance=book_instance, date_borrowed=date_borrowed, due_back=due_date, borrower=borrower)
             trans.save()
-            book_instance.save()
             return HttpResponseRedirect(reverse('transactions'))
-
     return render(request, 'catalog/create_transaction.html', {'form': form})
 
 def return_book(request, pk):
@@ -100,6 +101,23 @@ def return_book(request, pk):
             return HttpResponseRedirect(reverse('transactions'))
 
     return render(request, 'catalog/return_book.html', {'form': form, 'trans': trans})
+
+
+def create_book_instance(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    form = CreateBookInstanceForm(request.POST)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            # id = form.cleaned_data['id']
+            status = form.cleaned_data['status']
+
+            book_instance = BookInstance.objects.create(book=book, status=status)
+            book_instance.save()
+            return HttpResponseRedirect(reverse('book-detail', kwargs={'pk': pk}))    
+
+    return render(request, 'catalog/bookinstance_add.html', {'form': form, 'book': book})
+    
 
 class BookListView(generic.ListView):
     model = Book

@@ -51,14 +51,14 @@ class BookInstance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID for this particular book across whole library')
     book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True)
 
-    LOAN_STATUS = (
+    STATUS_VALUES = (
         ('m', 'Maintenance'),
         ('o', 'On loan'),
         ('a', 'Available'),
         ('r', 'Reserved'),
     )
 
-    status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='m', help_text='Book availability')
+    status = models.CharField(max_length=1, choices=STATUS_VALUES, blank=True, default='m', help_text='Book availability')
 
     # class Meta:
     #     ordering = ['due_back']

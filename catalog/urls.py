@@ -20,5 +20,7 @@ urlpatterns = [
     # path('transaction/create/', views.TransactionCreate.as_view(), name='transaction-create'),
     path('transaction/create/', views.create_new_transaction, name='transaction-create'),
     path('book/<int:pk>/return/', views.return_book, name='return-book'),
-    path('transaction/history/', views.TransactionHistoryListView.as_view(), name='transaction-history')
+    path('transaction/history/', views.TransactionHistoryListView.as_view(), name='transaction-history'),
+    path('book/<int:pk>/add-instance/', views.create_book_instance, name='add-book-instance'),
+    
 ]

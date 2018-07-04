@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+    <h1>Title: {{ book.title }}</h1>
+    <p class="alert alert-warning">Book instance ID will be auto-generated.</p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <br>
+        <input class="btn btn-primary" type="submit" value="Add Instance" />
+    </form>
+
+{% endblock %}

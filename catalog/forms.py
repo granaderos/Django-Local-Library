@@ -39,14 +39,22 @@ class CreateTransactionForm(forms.Form):
 
     users = User.objects.all().values_list('id', 'username')
 
-    book = forms.ChoiceField(choices=book_choices)
-    
-    date_borrowed = forms.DateField(widget=forms.TextInput(attrs={'value': datetime.date.today()}))
-    # due_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker'}))
-    due_date = forms.DateField(widget=forms.SelectDateWidget())
-    borrower = forms.ChoiceField(choices=users)
+    book = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), choices=book_choices)
+    date_borrowed = forms.DateField(widget=forms.TextInput(attrs={'value': datetime.date.today(), 'class': 'form-control'}))
+    due_date = forms.DateField(widget=forms.SelectDateWidget(attrs={'class': 'form-control'}))
+    borrower = forms.ChoiceField(widget=forms.Select(attrs={'class': 'form-control'}), choices=users)
     
 
 class ReturnBookForm(forms.Form):
     remarks = forms.CharField(widget=forms.Textarea, help_text="Enter a remark (e.i. condition of the book, etc.)")
     date_returned = forms.DateField(widget=forms.SelectDateWidget())
+
+
+class CreateBookInstanceForm(forms.Form):
+    STATUS_VALUES = (
+        ('a', 'Available'),
+        ('m', 'Maintenance'),
+        ('o', 'On loan'),
+        ('r', 'Reserved'),
+    )
+    status = forms.ChoiceField(choices=STATUS_VALUES, widget=forms.Select(attrs={'class': 'form-control'}))
