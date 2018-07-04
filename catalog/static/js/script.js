@@ -2,7 +2,7 @@ $(function () {
     //alert("Script is working")
     $('[data-toggle="tooltip"]').tooltip();
 
-    $(".datepicker").datepicker();
+    //$(".datepicker").datepicker();
   });
 
 function author_delete(id) {

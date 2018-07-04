@@ -105,11 +105,10 @@ def return_book(request, pk):
 
 def create_book_instance(request, pk):
     book = get_object_or_404(Book, pk=pk)
-    form = CreateBookInstanceForm(request.POST)
+    form = CreateBookInstanceForm(request.POST or None)
 
     if request.method == 'POST':
         if form.is_valid():
-            # id = form.cleaned_data['id']
             status = form.cleaned_data['status']
 
             book_instance = BookInstance.objects.create(book=book, status=status)
