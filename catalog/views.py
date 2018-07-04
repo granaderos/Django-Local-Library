@@ -85,7 +85,7 @@ def create_new_transaction(request):
 def return_book(request, pk):
     trans = get_object_or_404(Transaction, pk=pk)
     book_instance = get_object_or_404(BookInstance, pk=trans.book_instance.id)
-    form = ReturnBookForm(request.POST)
+    form = ReturnBookForm(request.POST or None)
 
     if request.method == 'POST':
         if form.is_valid():
@@ -123,7 +123,7 @@ class BookListView(generic.ListView):
     context_object_name = 'book_list'
     queryset = Book.objects.all()
     template_name = 'book_list.html'
-    paginate_by = 5
+    paginate_by = 13
 
 
 class BookDetailView(LoginRequiredMixin, generic.DetailView):

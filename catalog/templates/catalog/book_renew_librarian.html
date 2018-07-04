@@ -2,19 +2,24 @@
 
 {% block content %}
 
-    <h1>Renew: {{ trans.book_instance.book.title }}</h1>
-    <p>Borrower: {{ trans.borrower.username }}</p>
-    <p 
-        {% if tans.is_overdue %}
-            class="text-danger"
-        {% endif %}>
-        Due date: {{ trans.due_back }}
+    <h2>Book to Renew: {{ trans.book_instance.book.title }}</h2>
+    <p>
+        <strong>Book ID: {{ trans.book_instance.id }}</strong> <br>
+        <strong>Borrower: {{ trans.borrower.username }}</strong> <br>
+        <strong>
+            {% if tans.is_overdue %}
+                class="text-danger"
+            {% endif %}
+            Due date: {{ trans.due_back }}
+        </strong>
     </p>
 
     <form action="" method="post">
         {% csrf_token %}
-        <table> {{ form }} </table>
-        <input type="submit" value="Submit" />
+        {{ form.as_p }}
+        <br>
+        <input class="btn btn-outline-primary" type="submit" value="Confirm Renew" />
+        <a class="btn btn-outline-danger" href="{% url 'transactions' %}">Cancel</a>
     </form>
 
 {% endblock %}

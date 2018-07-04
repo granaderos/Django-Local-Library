@@ -9,8 +9,8 @@ import datetime
 
 
 class RenewBookForm(forms.Form):
-    renewal_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'datepicker', "width": "276"}), help_text="Enter a date between now and 4 weeks (default 3).")
-
+    renewal_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'form-control', "width": "276"}))
+    #help_text="Enter a date between now and 4 weeks (default 3)."
     def clean_renewal_date(self):
         data = self.cleaned_data['renewal_date']
 
@@ -46,8 +46,8 @@ class CreateTransactionForm(forms.Form):
     
 
 class ReturnBookForm(forms.Form):
-    remarks = forms.CharField(widget=forms.Textarea, help_text="Enter a remark (e.i. condition of the book, etc.)")
-    date_returned = forms.DateField(widget=forms.SelectDateWidget())
+    remarks = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': "Enter a remark (e.i. condition of the book, etc.)"}))
+    date_returned = forms.DateField(widget=forms.SelectDateWidget(attrs={'class': 'form-control'}))
 
 
 class CreateBookInstanceForm(forms.Form):
