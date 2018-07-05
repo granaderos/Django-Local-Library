@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.4 (Python 3.6.5 on linux)" generated="20180705 15:45:47.804">
+<suite id="s1" name="Test-Locallibrary" source="/home/csd/lair/RobotTests/test-locallibrary.robot">
+<test id="s1-t1" name="LoginTextCaseOnFirefox">
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${LOGIN_URL}</arg>
+<arg>${BROWSER}</arg>
+</arguments>
+<msg timestamp="20180705 15:45:47.895" level="INFO">Opening browser 'Firefox' to base url 'http://127.0.0.1:8000/accounts/login/'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180705 15:45:51.952" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180705 15:45:51.951" endtime="20180705 15:45:51.952"></status>
+</kw>
+<msg timestamp="20180705 15:45:51.954" level="FAIL">InvalidArgumentException: Message: Missing 'type' parameter
+</msg>
+<status status="FAIL" starttime="20180705 15:45:47.894" endtime="20180705 15:45:51.954"></status>
+</kw>
+<status status="FAIL" starttime="20180705 15:45:47.894" endtime="20180705 15:45:51.954" critical="yes">InvalidArgumentException: Message: Missing 'type' parameter
+</status>
+</test>
+<status status="FAIL" starttime="20180705 15:45:47.805" endtime="20180705 15:45:51.956"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1">Critical Tests</stat>
+<stat pass="0" fail="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" id="s1" name="Test-Locallibrary">Test-Locallibrary</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

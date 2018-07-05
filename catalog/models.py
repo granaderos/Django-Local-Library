@@ -23,7 +23,7 @@ class Book(models.Model):
     imprint = models.CharField(max_length=200, null=True, help_text="Enter imprint information of the book.")
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book.')
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
-    copies = models.IntegerField(default=0)
+    #copies = models.IntegerField(default=0)
     
     def __str__(self):
         return self.title

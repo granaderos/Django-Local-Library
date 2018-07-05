@@ -26,7 +26,10 @@
         
         {% for trans in transaction_list %}
             <tr>
-                <td>{{ trans.book_instance.book.title }}</td>
+                <td>
+                    {{ trans.book_instance.book.title }} <br>
+                    ({{ trans.book_instance.id }})
+                </td>
                 <td>{{ trans.borrower.username }}</td>
                 <td>{{ trans.date_borrowed }}</td>
                 <td>{{ trans.due_back }}</td>
