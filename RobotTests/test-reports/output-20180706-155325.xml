@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.4 (Python 3.6.5 on linux)" generated="20180706 15:53:25.186">
+<suite id="s1" name="Test-Locallibrary" source="/home/csd/lair/DjangoProjects/locallibrary/RobotTests/test-locallibrary.robot">
+<test id="s1-t1" name="Testing: Login">
+<kw name="Set Selenium Speed" library="SeleniumLibrary">
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<arguments>
+<arg>${SPEED}</arg>
+</arguments>
+<status status="PASS" starttime="20180706 15:53:25.281" endtime="20180706 15:53:25.281"></status>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${LOGIN_URL}</arg>
+<arg>${Browser_2}</arg>
+</arguments>
+<msg timestamp="20180706 15:53:25.282" level="INFO">Opening browser 'Firefox' to base url 'http://127.0.0.1:8000/accounts/login/'.</msg>
+<status status="PASS" starttime="20180706 15:53:25.281" endtime="20180706 15:53:30.826"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_username"]</arg>
+<arg>librarian1</arg>
+</arguments>
+<msg timestamp="20180706 15:53:30.827" level="INFO">Typing text 'librarian1' into text field '//*[@id="id_username"]'.</msg>
+<status status="PASS" starttime="20180706 15:53:30.827" endtime="20180706 15:53:33.580"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_password"]</arg>
+<arg>librarian1userpassword</arg>
+</arguments>
+<msg timestamp="20180706 15:53:33.581" level="INFO">Typing text 'librarian1userpassword' into text field '//*[@id="id_password"]'.</msg>
+<status status="PASS" starttime="20180706 15:53:33.581" endtime="20180706 15:53:36.333"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks button identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/form/div[3]/input[1]</arg>
+</arguments>
+<msg timestamp="20180706 15:53:36.333" level="INFO">Clicking button '//html/body/div[2]/div/div[3]/form/div[3]/input[1]'.</msg>
+<status status="PASS" starttime="20180706 15:53:36.333" endtime="20180706 15:53:39.309"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:53:40.262" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-83.png"&gt;&lt;img src="selenium-screenshot-83.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 15:53:39.310" endtime="20180706 15:53:40.262"></status>
+</kw>
+<status status="PASS" starttime="20180706 15:53:25.280" endtime="20180706 15:53:40.262" critical="yes"></status>
+</test>
+<test id="s1-t2" name="Testing: Displaying Book List">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/li[2]/a</arg>
+</arguments>
+<msg timestamp="20180706 15:53:40.265" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/li[2]/a'.</msg>
+<status status="PASS" starttime="20180706 15:53:40.265" endtime="20180706 15:53:43.154"></status>
+</kw>
+<status status="PASS" starttime="20180706 15:53:40.264" endtime="20180706 15:53:43.154" critical="yes"></status>
+</test>
+<test id="s1-t3" name="Testing: Book List Pagination">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/ul/li[3]/a</arg>
+</arguments>
+<msg timestamp="20180706 15:53:43.157" level="INFO">Clicking link '//html/body/div[2]/div/div[3]/ul/li[3]/a'.</msg>
+<status status="PASS" starttime="20180706 15:53:43.156" endtime="20180706 15:53:46.009"></status>
+</kw>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/ul/li[5]/a</arg>
+</arguments>
+<msg timestamp="20180706 15:53:46.010" level="INFO">Clicking link '//html/body/div[2]/div/div[3]/ul/li[5]/a'.</msg>
+<status status="PASS" starttime="20180706 15:53:46.009" endtime="20180706 15:53:48.833"></status>
+</kw>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/ul/li[2]/span[1]</arg>
+</arguments>
+<msg timestamp="20180706 15:53:48.834" level="INFO">Clicking link '//html/body/div[2]/div/div[3]/ul/li[2]/span[1]'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:53:50.685" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-84.png"&gt;&lt;img src="selenium-screenshot-84.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 15:53:49.744" endtime="20180706 15:53:50.685"></status>
+</kw>
+<msg timestamp="20180706 15:53:50.686" level="FAIL">Link with locator '//html/body/div[2]/div/div[3]/ul/li[2]/span[1]' not found.</msg>
+<status status="FAIL" starttime="20180706 15:53:48.833" endtime="20180706 15:53:50.686"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:53:43.155" endtime="20180706 15:53:50.686" critical="yes">Link with locator '//html/body/div[2]/div/div[3]/ul/li[2]/span[1]' not found.</status>
+</test>
+<test id="s1-t4" name="Testing: Adding Book">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/ul/li/a</arg>
+</arguments>
+<msg timestamp="20180706 15:53:50.688" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/ul/li/a'.</msg>
+<status status="PASS" starttime="20180706 15:53:50.688" endtime="20180706 15:53:53.544"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_title"]</arg>
+<arg>New Book Added Through Robot</arg>
+</arguments>
+<msg timestamp="20180706 15:53:53.545" level="INFO">Typing text 'New Book Added Through Robot' into text field '//*[@id="id_title"]'.</msg>
+<status status="PASS" starttime="20180706 15:53:53.545" endtime="20180706 15:53:56.331"></status>
+</kw>
+<kw name="Select From List" library="SeleniumLibrary">
+<doc>Deprecated. Use `Select From List By Label/Value/Index` instead.</doc>
+<arguments>
+<arg>//*[@id="id_author"]</arg>
+<arg>op, po</arg>
+</arguments>
+<msg timestamp="20180706 15:53:56.332" level="INFO">Selecting option(s) 'op, po' from list '//*[@id="id_author"]'.</msg>
+<status status="PASS" starttime="20180706 15:53:56.332" endtime="20180706 15:54:03.834"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_summary"]</arg>
+<arg>New Book Added Through Robot summary. New Book Added Through Robot summary.</arg>
+</arguments>
+<msg timestamp="20180706 15:54:03.835" level="INFO">Typing text 'New Book Added Through Robot summary. New Book Added Through Robot summary.' into text field '//*[@id="id_summary"]'.</msg>
+<status status="PASS" starttime="20180706 15:54:03.834" endtime="20180706 15:54:06.636"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_isbn"]</arg>
+<arg>45652</arg>
+</arguments>
+<msg timestamp="20180706 15:54:06.637" level="INFO">Typing text '45652' into text field '//*[@id="id_isbn"]'.</msg>
+<status status="PASS" starttime="20180706 15:54:06.636" endtime="20180706 15:54:09.378"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_imprint"]</arg>
+<arg>Random input for id_imprint</arg>
+</arguments>
+<msg timestamp="20180706 15:54:09.379" level="INFO">Typing text 'Random input for id_imprint' into text field '//*[@id="id_imprint"]'.</msg>
+<status status="PASS" starttime="20180706 15:54:09.378" endtime="20180706 15:54:12.137"></status>
+</kw>
+<kw name="Select From List" library="SeleniumLibrary">
+<doc>Deprecated. Use `Select From List By Label/Value/Index` instead.</doc>
+<arguments>
+<arg>//*[@id="id_genre"]</arg>
+<arg>@{GENRE}</arg>
+</arguments>
+<msg timestamp="20180706 15:54:12.138" level="INFO">Selecting option(s) 'Mystery, Drama' from list '//*[@id="id_genre"]'.</msg>
+<status status="PASS" starttime="20180706 15:54:12.137" endtime="20180706 15:54:23.486"></status>
+</kw>
+<kw name="Select From List" library="SeleniumLibrary">
+<doc>Deprecated. Use `Select From List By Label/Value/Index` instead.</doc>
+<arguments>
+<arg>//*[@id="id_language"]</arg>
+<arg>Filipino</arg>
+</arguments>
+<msg timestamp="20180706 15:54:23.486" level="INFO">Selecting option(s) 'Filipino' from list '//*[@id="id_language"]'.</msg>
+<status status="PASS" starttime="20180706 15:54:23.486" endtime="20180706 15:54:30.975"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:54:31.927" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-85.png"&gt;&lt;img src="selenium-screenshot-85.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 15:54:30.975" endtime="20180706 15:54:31.928"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks button identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/form/input[2]</arg>
+</arguments>
+<msg timestamp="20180706 15:54:31.928" level="INFO">Clicking button '//html/body/div[2]/div/div[3]/form/input[2]'.</msg>
+<status status="PASS" starttime="20180706 15:54:31.928" endtime="20180706 15:54:34.865"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:54:35.818" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-86.png"&gt;&lt;img src="selenium-screenshot-86.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 15:54:34.865" endtime="20180706 15:54:35.818"></status>
+</kw>
+<status status="PASS" starttime="20180706 15:53:50.687" endtime="20180706 15:54:35.819" critical="yes"></status>
+</test>
+<test id="s1-t5" name="Testing: Updating Book">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/span/a[1]/span</arg>
+</arguments>
+<msg timestamp="20180706 15:54:35.822" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/span/a[1]/span'.</msg>
+<status status="PASS" starttime="20180706 15:54:35.821" endtime="20180706 15:54:37.759"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_title"]</arg>
+<arg>UPDATED New Book Added Through Robot</arg>
+</arguments>
+<msg timestamp="20180706 15:54:37.760" level="INFO">Typing text 'UPDATED New Book Added Through Robot' into text field '//*[@id="id_title"]'.</msg>
+<status status="PASS" starttime="20180706 15:54:37.760" endtime="20180706 15:54:40.537"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:54:41.488" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-87.png"&gt;&lt;img src="selenium-screenshot-87.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 15:54:40.537" endtime="20180706 15:54:41.488"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks button identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/form/input[2]</arg>
+</arguments>
+<msg timestamp="20180706 15:54:41.489" level="INFO">Clicking button '//html/body/div[2]/div/div[3]/form/input[2]'.</msg>
+<status status="PASS" starttime="20180706 15:54:41.489" endtime="20180706 15:54:44.388"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:54:45.339" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-88.png"&gt;&lt;img src="selenium-screenshot-88.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 15:54:44.388" endtime="20180706 15:54:45.340"></status>
+</kw>
+<status status="PASS" starttime="20180706 15:54:35.820" endtime="20180706 15:54:45.340" critical="yes"></status>
+</test>
+<test id="s1-t6" name="Testing: Adding Book Instance">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/span/a[3]/span</arg>
+</arguments>
+<msg timestamp="20180706 15:54:45.344" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/span/a[3]/span'.</msg>
+<status status="PASS" starttime="20180706 15:54:45.343" endtime="20180706 15:54:47.268"></status>
+</kw>
+<kw name="Select From List" library="SeleniumLibrary">
+<doc>Deprecated. Use `Select From List By Label/Value/Index` instead.</doc>
+<arguments>
+<arg>//*[@id="id_status"]</arg>
+<arg>Available</arg>
+</arguments>
+<msg timestamp="20180706 15:54:47.269" level="INFO">Selecting option(s) 'Available' from list '//*[@id="id_status"]'.</msg>
+<status status="PASS" starttime="20180706 15:54:47.268" endtime="20180706 15:54:53.650"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks button identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/form/input[2]</arg>
+</arguments>
+<msg timestamp="20180706 15:54:53.651" level="INFO">Clicking button '//html/body/div[2]/div/div[3]/form/input[2]'.</msg>
+<status status="PASS" starttime="20180706 15:54:53.651" endtime="20180706 15:54:56.527"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:54:57.479" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-89.png"&gt;&lt;img src="selenium-screenshot-89.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 15:54:56.527" endtime="20180706 15:54:57.479"></status>
+</kw>
+<status status="PASS" starttime="20180706 15:54:45.342" endtime="20180706 15:54:57.479" critical="yes"></status>
+</test>
+<test id="s1-t7" name="Testing Deleting Book">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/span/a[2]/span</arg>
+</arguments>
+<msg timestamp="20180706 15:54:57.482" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/span/a[2]/span'.</msg>
+<status status="PASS" starttime="20180706 15:54:57.481" endtime="20180706 15:54:59.390"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks button identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/form/input[2]</arg>
+</arguments>
+<msg timestamp="20180706 15:54:59.391" level="INFO">Clicking button '//html/body/div[2]/div/div[3]/form/input[2]'.</msg>
+<status status="PASS" starttime="20180706 15:54:59.391" endtime="20180706 15:55:02.253"></status>
+</kw>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:55:03.206" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-90.png"&gt;&lt;img src="selenium-screenshot-90.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 15:55:02.254" endtime="20180706 15:55:03.207"></status>
+</kw>
+<status status="PASS" starttime="20180706 15:54:57.480" endtime="20180706 15:55:03.207" critical="yes"></status>
+</test>
+<test id="s1-t8" name="Testing: Displaying Author List">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/li[3]/a</arg>
+</arguments>
+<msg timestamp="20180706 15:55:03.209" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/li[3]/a'.</msg>
+<status status="PASS" starttime="20180706 15:55:03.209" endtime="20180706 15:55:06.040"></status>
+</kw>
+<status status="PASS" starttime="20180706 15:55:03.208" endtime="20180706 15:55:06.040" critical="yes"></status>
+</test>
+<test id="s1-t9" name="Testing: Author List Pagination">
+<status status="FAIL" starttime="20180706 15:55:06.041" endtime="20180706 15:55:06.042" critical="yes">Test case contains no keywords.</status>
+</test>
+<test id="s1-t10" name="Testing: Adding Author">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/li[4]/ul/li/a</arg>
+</arguments>
+<msg timestamp="20180706 15:55:06.044" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/li[4]/ul/li/a'.</msg>
+<status status="PASS" starttime="20180706 15:55:06.043" endtime="20180706 15:55:08.880"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_first_name"]</arg>
+<arg>New Author First Name Added through Robot</arg>
+</arguments>
+<msg timestamp="20180706 15:55:08.881" level="INFO">Typing text 'New Author First Name Added through Robot' into text field '//*[@id="id_first_name"]'.</msg>
+<status status="PASS" starttime="20180706 15:55:08.880" endtime="20180706 15:55:11.658"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_last_name"]</arg>
+<arg>New Author Last Name Added Through Robot</arg>
+</arguments>
+<msg timestamp="20180706 15:55:11.659" level="INFO">Typing text 'New Author Last Name Added Through Robot' into text field '//*[@id="id_last_name"]'.</msg>
+<status status="PASS" starttime="20180706 15:55:11.658" endtime="20180706 15:55:14.435"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_date_of_birth"]</arg>
+<arg>1996-5-5</arg>
+</arguments>
+<msg timestamp="20180706 15:55:14.436" level="INFO">Typing text '1996-5-5' into text field '//*[@id="id_date_of_birth"]'.</msg>
+<status status="PASS" starttime="20180706 15:55:14.436" endtime="20180706 15:55:17.190"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks button identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/form/input[2]</arg>
+</arguments>
+<msg timestamp="20180706 15:55:17.191" level="INFO">Clicking button '//html/body/div[2]/div/div[3]/form/input[2]'.</msg>
+<status status="PASS" starttime="20180706 15:55:17.190" endtime="20180706 15:55:20.079"></status>
+</kw>
+<status status="PASS" starttime="20180706 15:55:06.042" endtime="20180706 15:55:20.080" critical="yes"></status>
+</test>
+<test id="s1-t11" name="Testing: Updating Author Detail">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/a[1]/span</arg>
+</arguments>
+<msg timestamp="20180706 15:55:20.082" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/a[1]/span'.</msg>
+<status status="PASS" starttime="20180706 15:55:20.082" endtime="20180706 15:55:22.016"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_first_name"]</arg>
+<arg>Updated Name</arg>
+</arguments>
+<msg timestamp="20180706 15:55:22.017" level="INFO">Typing text 'Updated Name' into text field '//*[@id="id_first_name"]'.</msg>
+<status status="PASS" starttime="20180706 15:55:22.017" endtime="20180706 15:55:24.767"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks button identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/form/input[2]</arg>
+</arguments>
+<msg timestamp="20180706 15:55:24.768" level="INFO">Clicking button '//html/body/div[2]/div/div[3]/form/input[2]'.</msg>
+<status status="PASS" starttime="20180706 15:55:24.768" endtime="20180706 15:55:27.624"></status>
+</kw>
+<status status="PASS" starttime="20180706 15:55:20.081" endtime="20180706 15:55:27.624" critical="yes"></status>
+</test>
+<test id="s1-t12" name="Testing: Deleting Author">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/a[2]/span</arg>
+</arguments>
+<msg timestamp="20180706 15:55:27.626" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/a[2]/span'.</msg>
+<status status="PASS" starttime="20180706 15:55:27.626" endtime="20180706 15:55:29.568"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks button identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/form/input[2]</arg>
+</arguments>
+<msg timestamp="20180706 15:55:29.569" level="INFO">Clicking button '//html/body/div[2]/div/div[3]/form/input[2]'.</msg>
+<status status="PASS" starttime="20180706 15:55:29.568" endtime="20180706 15:55:32.425"></status>
+</kw>
+<status status="PASS" starttime="20180706 15:55:27.625" endtime="20180706 15:55:32.425" critical="yes"></status>
+</test>
+<status status="FAIL" starttime="20180706 15:53:25.187" endtime="20180706 15:55:32.429"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="10" fail="2">Critical Tests</stat>
+<stat pass="10" fail="2">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="10" fail="2" id="s1" name="Test-Locallibrary">Test-Locallibrary</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

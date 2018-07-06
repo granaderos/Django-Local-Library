@@ -13,7 +13,7 @@
     <p>{{ author.date_of_birth }} - {{ author.date_of_death }}</p>
 
     <div>
-        <h3>Books</h3>
+        <h3>Books ({{ author.book_set.all.count }})</h3>
         <dl>
             {% for book in author.book_set.all %}
                 <dt>

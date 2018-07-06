@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.4 (Python 3.6.5 on linux)" generated="20180706 15:48:25.976">
+<suite id="s1" name="Test-Locallibrary" source="/home/csd/lair/DjangoProjects/locallibrary/RobotTests/test-locallibrary.robot">
+<test id="s1-t1" name="Testing: Login">
+<kw name="Set Selenium Speed" library="SeleniumLibrary">
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<arguments>
+<arg>${SPEED}</arg>
+</arguments>
+<status status="PASS" starttime="20180706 15:48:26.069" endtime="20180706 15:48:26.069"></status>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${LOGIN_URL}</arg>
+<arg>${Browser_2}</arg>
+</arguments>
+<msg timestamp="20180706 15:48:26.069" level="INFO">Opening browser 'Firefox' to base url 'http://127.0.0.1:8000/accounts/login/'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:48:26.075" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180706 15:48:26.074" endtime="20180706 15:48:26.075"></status>
+</kw>
+<msg timestamp="20180706 15:48:26.076" level="FAIL">OSError: [Errno 8] Exec format error: 'geckodriver'</msg>
+<status status="FAIL" starttime="20180706 15:48:26.069" endtime="20180706 15:48:26.076"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:48:26.068" endtime="20180706 15:48:26.076" critical="yes">OSError: [Errno 8] Exec format error: 'geckodriver'</status>
+</test>
+<test id="s1-t2" name="Testing: Displaying Book List">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/li[2]/a</arg>
+</arguments>
+<msg timestamp="20180706 15:48:26.078" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/li[2]/a'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:48:26.078" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180706 15:48:26.078" endtime="20180706 15:48:26.078"></status>
+</kw>
+<msg timestamp="20180706 15:48:26.079" level="FAIL">No browser is open.</msg>
+<status status="FAIL" starttime="20180706 15:48:26.077" endtime="20180706 15:48:26.079"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:48:26.077" endtime="20180706 15:48:26.079" critical="yes">No browser is open.</status>
+</test>
+<test id="s1-t3" name="Testing: Book List Pagination">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/ul/li[3]/a</arg>
+</arguments>
+<msg timestamp="20180706 15:48:26.080" level="INFO">Clicking link '//html/body/div[2]/div/div[3]/ul/li[3]/a'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:48:26.080" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180706 15:48:26.080" endtime="20180706 15:48:26.080"></status>
+</kw>
+<msg timestamp="20180706 15:48:26.080" level="FAIL">No browser is open.</msg>
+<status status="FAIL" starttime="20180706 15:48:26.080" endtime="20180706 15:48:26.080"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:48:26.079" endtime="20180706 15:48:26.080" critical="yes">No browser is open.</status>
+</test>
+<test id="s1-t4" name="Testing: Adding Book">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/ul/li/a</arg>
+</arguments>
+<msg timestamp="20180706 15:48:26.081" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/ul/li/a'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:48:26.082" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180706 15:48:26.081" endtime="20180706 15:48:26.082"></status>
+</kw>
+<msg timestamp="20180706 15:48:26.082" level="FAIL">No browser is open.</msg>
+<status status="FAIL" starttime="20180706 15:48:26.081" endtime="20180706 15:48:26.082"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:48:26.081" endtime="20180706 15:48:26.082" critical="yes">No browser is open.</status>
+</test>
+<test id="s1-t5" name="Testing: Updating Book">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/span/a[1]/span</arg>
+</arguments>
+<msg timestamp="20180706 15:48:26.083" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/span/a[1]/span'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:48:26.083" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180706 15:48:26.083" endtime="20180706 15:48:26.083"></status>
+</kw>
+<msg timestamp="20180706 15:48:26.083" level="FAIL">No browser is open.</msg>
+<status status="FAIL" starttime="20180706 15:48:26.083" endtime="20180706 15:48:26.083"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:48:26.082" endtime="20180706 15:48:26.083" critical="yes">No browser is open.</status>
+</test>
+<test id="s1-t6" name="Testing: Adding Book Instance">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/span/a[3]/span</arg>
+</arguments>
+<msg timestamp="20180706 15:48:26.084" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/span/a[3]/span'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:48:26.085" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180706 15:48:26.084" endtime="20180706 15:48:26.085"></status>
+</kw>
+<msg timestamp="20180706 15:48:26.085" level="FAIL">No browser is open.</msg>
+<status status="FAIL" starttime="20180706 15:48:26.084" endtime="20180706 15:48:26.085"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:48:26.084" endtime="20180706 15:48:26.085" critical="yes">No browser is open.</status>
+</test>
+<test id="s1-t7" name="Testing Deleting Book">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/span/a[2]/span</arg>
+</arguments>
+<msg timestamp="20180706 15:48:26.086" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/span/a[2]/span'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:48:26.086" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180706 15:48:26.086" endtime="20180706 15:48:26.087"></status>
+</kw>
+<msg timestamp="20180706 15:48:26.087" level="FAIL">No browser is open.</msg>
+<status status="FAIL" starttime="20180706 15:48:26.086" endtime="20180706 15:48:26.087"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:48:26.085" endtime="20180706 15:48:26.087" critical="yes">No browser is open.</status>
+</test>
+<test id="s1-t8" name="Testing: Displaying Author List">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/li[3]/a</arg>
+</arguments>
+<msg timestamp="20180706 15:48:26.088" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/li[3]/a'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:48:26.088" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180706 15:48:26.088" endtime="20180706 15:48:26.088"></status>
+</kw>
+<msg timestamp="20180706 15:48:26.088" level="FAIL">No browser is open.</msg>
+<status status="FAIL" starttime="20180706 15:48:26.088" endtime="20180706 15:48:26.089"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:48:26.087" endtime="20180706 15:48:26.089" critical="yes">No browser is open.</status>
+</test>
+<test id="s1-t9" name="Testing: Author List Pagination">
+<status status="FAIL" starttime="20180706 15:48:26.089" endtime="20180706 15:48:26.089" critical="yes">Test case contains no keywords.</status>
+</test>
+<test id="s1-t10" name="Testing: Adding Author">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/li[4]/ul/li/a</arg>
+</arguments>
+<msg timestamp="20180706 15:48:26.090" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/li[4]/ul/li/a'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:48:26.090" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180706 15:48:26.090" endtime="20180706 15:48:26.091"></status>
+</kw>
+<msg timestamp="20180706 15:48:26.091" level="FAIL">No browser is open.</msg>
+<status status="FAIL" starttime="20180706 15:48:26.090" endtime="20180706 15:48:26.091"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:48:26.090" endtime="20180706 15:48:26.091" critical="yes">No browser is open.</status>
+</test>
+<test id="s1-t11" name="Testing: Updating Author Detail">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/a[1]/span</arg>
+</arguments>
+<msg timestamp="20180706 15:48:26.092" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/a[1]/span'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:48:26.092" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180706 15:48:26.092" endtime="20180706 15:48:26.093"></status>
+</kw>
+<msg timestamp="20180706 15:48:26.093" level="FAIL">No browser is open.</msg>
+<status status="FAIL" starttime="20180706 15:48:26.092" endtime="20180706 15:48:26.093"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:48:26.091" endtime="20180706 15:48:26.093" critical="yes">No browser is open.</status>
+</test>
+<test id="s1-t12" name="Testing: Deleting Author">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/a[2]/span</arg>
+</arguments>
+<msg timestamp="20180706 15:48:26.095" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/a[2]/span'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 15:48:26.095" level="INFO">Cannot capture screenshot because no browser is open.</msg>
+<status status="PASS" starttime="20180706 15:48:26.095" endtime="20180706 15:48:26.095"></status>
+</kw>
+<msg timestamp="20180706 15:48:26.096" level="FAIL">No browser is open.</msg>
+<status status="FAIL" starttime="20180706 15:48:26.094" endtime="20180706 15:48:26.096"></status>
+</kw>
+<status status="FAIL" starttime="20180706 15:48:26.094" endtime="20180706 15:48:26.096" critical="yes">No browser is open.</status>
+</test>
+<status status="FAIL" starttime="20180706 15:48:25.977" endtime="20180706 15:48:26.097"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="12">Critical Tests</stat>
+<stat pass="0" fail="12">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="12" id="s1" name="Test-Locallibrary">Test-Locallibrary</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

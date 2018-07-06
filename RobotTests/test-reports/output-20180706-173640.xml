@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.4 (Python 3.6.5 on linux)" generated="20180706 17:36:40.865">
+<suite id="s1" name="Test-Locallibrary" source="/home/csd/lair/DjangoProjects/locallibrary/RobotTests/test-locallibrary.robot">
+<test id="s1-t1" name="Testing: Login">
+<kw name="Set Selenium Speed" library="SeleniumLibrary">
+<doc>Sets the delay that is waited after each Selenium command.</doc>
+<arguments>
+<arg>${SPEED}</arg>
+</arguments>
+<status status="PASS" starttime="20180706 17:36:40.958" endtime="20180706 17:36:40.958"></status>
+</kw>
+<kw name="Open Browser" library="SeleniumLibrary">
+<doc>Opens a new browser instance to the given ``url``.</doc>
+<arguments>
+<arg>${LOGIN_URL}</arg>
+<arg>${BROWSER_1}</arg>
+</arguments>
+<msg timestamp="20180706 17:36:40.959" level="INFO">Opening browser 'Chrome' to base url 'http://127.0.0.1:8000/accounts/login/'.</msg>
+<status status="PASS" starttime="20180706 17:36:40.959" endtime="20180706 17:36:44.368"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_username"]</arg>
+<arg>librarian1</arg>
+</arguments>
+<msg timestamp="20180706 17:36:44.369" level="INFO">Typing text 'librarian1' into text field '//*[@id="id_username"]'.</msg>
+<status status="PASS" starttime="20180706 17:36:44.368" endtime="20180706 17:36:47.184"></status>
+</kw>
+<kw name="Input Text" library="SeleniumLibrary">
+<doc>Types the given ``text`` into text field identified by ``locator``.</doc>
+<arguments>
+<arg>//*[@id="id_password"]</arg>
+<arg>librarian1userpassword</arg>
+</arguments>
+<msg timestamp="20180706 17:36:47.185" level="INFO">Typing text 'librarian1userpassword' into text field '//*[@id="id_password"]'.</msg>
+<status status="PASS" starttime="20180706 17:36:47.185" endtime="20180706 17:36:50.021"></status>
+</kw>
+<kw name="Click Button" library="SeleniumLibrary">
+<doc>Clicks button identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/form/div[3]/input[1]</arg>
+</arguments>
+<msg timestamp="20180706 17:36:50.021" level="INFO">Clicking button '//html/body/div[2]/div/div[3]/form/div[3]/input[1]'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:36:52.861" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-155.png"&gt;&lt;img src="selenium-screenshot-155.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:36:51.878" endtime="20180706 17:36:52.861"></status>
+</kw>
+<msg timestamp="20180706 17:36:52.945" level="FAIL">ElementNotVisibleException: Message: element not visible
+  (Session info: chrome=66.0.3359.181)
+  (Driver info: chromedriver=2.40.565383 (76257d1ab79276b2d53ee976b2c3e3b9f335cde7),platform=Linux 4.15.0-24-generic x86_64)
+</msg>
+<status status="FAIL" starttime="20180706 17:36:50.021" endtime="20180706 17:36:52.945"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:36:40.958" endtime="20180706 17:36:52.945" critical="yes">ElementNotVisibleException: Message: element not visible
+  (Session info: chrome=66.0.3359.181)
+  (Driver info: chromedriver=2.40.565383 (76257d1ab79276b2d53ee976b2c3e3b9f335cde7),platform=Linux 4.15.0-24-generic x86_64)
+</status>
+</test>
+<test id="s1-t2" name="Testing: Displaying Book List">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/li[2]/a</arg>
+</arguments>
+<msg timestamp="20180706 17:36:52.947" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/li[2]/a'.</msg>
+<status status="PASS" starttime="20180706 17:36:52.947" endtime="20180706 17:36:55.824"></status>
+</kw>
+<status status="PASS" starttime="20180706 17:36:52.946" endtime="20180706 17:36:55.825" critical="yes"></status>
+</test>
+<test id="s1-t3" name="Testing: Book List Pagination">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/ul/li[3]/a</arg>
+</arguments>
+<msg timestamp="20180706 17:36:55.826" level="INFO">Clicking link '//html/body/div[2]/div/div[3]/ul/li[3]/a'.</msg>
+<status status="PASS" starttime="20180706 17:36:55.826" endtime="20180706 17:36:58.681"></status>
+</kw>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/ul/li[5]/a</arg>
+</arguments>
+<msg timestamp="20180706 17:36:58.681" level="INFO">Clicking link '//html/body/div[2]/div/div[3]/ul/li[5]/a'.</msg>
+<status status="PASS" starttime="20180706 17:36:58.681" endtime="20180706 17:37:01.531"></status>
+</kw>
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/ul/li[3]/a</arg>
+</arguments>
+<msg timestamp="20180706 17:37:01.532" level="INFO">Clicking link '//html/body/div[2]/div/div[3]/ul/li[3]/a'.</msg>
+<status status="PASS" starttime="20180706 17:37:01.531" endtime="20180706 17:37:04.368"></status>
+</kw>
+<status status="PASS" starttime="20180706 17:36:55.825" endtime="20180706 17:37:04.368" critical="yes"></status>
+</test>
+<test id="s1-t4" name="Testing: Adding Book">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/ul/li/a</arg>
+</arguments>
+<msg timestamp="20180706 17:37:04.370" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/ul/li/a'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:37:06.284" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-156.png"&gt;&lt;img src="selenium-screenshot-156.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:37:05.292" endtime="20180706 17:37:06.284"></status>
+</kw>
+<msg timestamp="20180706 17:37:06.285" level="FAIL">Link with locator '//html/body/div[2]/div/div[1]/nav/ul/ul/li/a' not found.</msg>
+<status status="FAIL" starttime="20180706 17:37:04.370" endtime="20180706 17:37:06.285"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:37:04.369" endtime="20180706 17:37:06.285" critical="yes">Link with locator '//html/body/div[2]/div/div[1]/nav/ul/ul/li/a' not found.</status>
+</test>
+<test id="s1-t5" name="Testing: Updating Book">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/span/a[1]/span</arg>
+</arguments>
+<msg timestamp="20180706 17:37:06.286" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/span/a[1]/span'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:37:08.193" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-157.png"&gt;&lt;img src="selenium-screenshot-157.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:37:07.204" endtime="20180706 17:37:08.194"></status>
+</kw>
+<msg timestamp="20180706 17:37:08.194" level="FAIL">Element with locator '//html/body/div[2]/div/div[3]/span/a[1]/span' not found.</msg>
+<status status="FAIL" starttime="20180706 17:37:06.286" endtime="20180706 17:37:08.194"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:37:06.286" endtime="20180706 17:37:08.195" critical="yes">Element with locator '//html/body/div[2]/div/div[3]/span/a[1]/span' not found.</status>
+</test>
+<test id="s1-t6" name="Testing: Adding Book Instance">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/span/a[3]/span</arg>
+</arguments>
+<msg timestamp="20180706 17:37:08.197" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/span/a[3]/span'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:37:10.109" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-158.png"&gt;&lt;img src="selenium-screenshot-158.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:37:09.118" endtime="20180706 17:37:10.109"></status>
+</kw>
+<msg timestamp="20180706 17:37:10.109" level="FAIL">Element with locator '//html/body/div[2]/div/div[3]/span/a[3]/span' not found.</msg>
+<status status="FAIL" starttime="20180706 17:37:08.197" endtime="20180706 17:37:10.110"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:37:08.196" endtime="20180706 17:37:10.110" critical="yes">Element with locator '//html/body/div[2]/div/div[3]/span/a[3]/span' not found.</status>
+</test>
+<test id="s1-t7" name="Testing Deleting Book">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/span/a[2]/span</arg>
+</arguments>
+<msg timestamp="20180706 17:37:10.112" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/span/a[2]/span'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:37:12.016" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-159.png"&gt;&lt;img src="selenium-screenshot-159.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:37:11.028" endtime="20180706 17:37:12.017"></status>
+</kw>
+<msg timestamp="20180706 17:37:12.017" level="FAIL">Element with locator '//html/body/div[2]/div/div[3]/span/a[2]/span' not found.</msg>
+<status status="FAIL" starttime="20180706 17:37:10.112" endtime="20180706 17:37:12.017"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:37:10.111" endtime="20180706 17:37:12.018" critical="yes">Element with locator '//html/body/div[2]/div/div[3]/span/a[2]/span' not found.</status>
+</test>
+<test id="s1-t8" name="Testing: Displaying Author List">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/li[3]/a</arg>
+</arguments>
+<msg timestamp="20180706 17:37:12.020" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/li[3]/a'.</msg>
+<status status="PASS" starttime="20180706 17:37:12.020" endtime="20180706 17:37:14.854"></status>
+</kw>
+<status status="PASS" starttime="20180706 17:37:12.019" endtime="20180706 17:37:14.855" critical="yes"></status>
+</test>
+<test id="s1-t9" name="Testing: Adding Author">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/li[4]/ul/li/a</arg>
+</arguments>
+<msg timestamp="20180706 17:37:14.856" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/li[4]/ul/li/a'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:37:16.758" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-160.png"&gt;&lt;img src="selenium-screenshot-160.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:37:15.776" endtime="20180706 17:37:16.758"></status>
+</kw>
+<msg timestamp="20180706 17:37:16.759" level="FAIL">Link with locator '//html/body/div[2]/div/div[1]/nav/ul/li[4]/ul/li/a' not found.</msg>
+<status status="FAIL" starttime="20180706 17:37:14.856" endtime="20180706 17:37:16.759"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:37:14.855" endtime="20180706 17:37:16.759" critical="yes">Link with locator '//html/body/div[2]/div/div[1]/nav/ul/li[4]/ul/li/a' not found.</status>
+</test>
+<test id="s1-t10" name="Testing: Updating Author Detail">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/a[1]/span</arg>
+</arguments>
+<msg timestamp="20180706 17:37:16.762" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/a[1]/span'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:37:18.663" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-161.png"&gt;&lt;img src="selenium-screenshot-161.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:37:17.680" endtime="20180706 17:37:18.664"></status>
+</kw>
+<msg timestamp="20180706 17:37:18.664" level="FAIL">Element with locator '//html/body/div[2]/div/div[3]/a[1]/span' not found.</msg>
+<status status="FAIL" starttime="20180706 17:37:16.762" endtime="20180706 17:37:18.664"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:37:16.761" endtime="20180706 17:37:18.665" critical="yes">Element with locator '//html/body/div[2]/div/div[3]/a[1]/span' not found.</status>
+</test>
+<test id="s1-t11" name="Testing: Deleting Author">
+<kw name="Click Element" library="SeleniumLibrary">
+<doc>Click element identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/a[2]/span</arg>
+</arguments>
+<msg timestamp="20180706 17:37:18.666" level="INFO">Clicking element '//html/body/div[2]/div/div[3]/a[2]/span'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:37:20.568" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-162.png"&gt;&lt;img src="selenium-screenshot-162.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:37:19.583" endtime="20180706 17:37:20.568"></status>
+</kw>
+<msg timestamp="20180706 17:37:20.569" level="FAIL">Element with locator '//html/body/div[2]/div/div[3]/a[2]/span' not found.</msg>
+<status status="FAIL" starttime="20180706 17:37:18.666" endtime="20180706 17:37:20.569"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:37:18.666" endtime="20180706 17:37:20.570" critical="yes">Element with locator '//html/body/div[2]/div/div[3]/a[2]/span' not found.</status>
+</test>
+<test id="s1-t12" name="Testing: Displaying Transactions">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/li[5]/a</arg>
+</arguments>
+<msg timestamp="20180706 17:37:20.572" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/li[5]/a'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:37:22.474" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-163.png"&gt;&lt;img src="selenium-screenshot-163.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:37:21.487" endtime="20180706 17:37:22.474"></status>
+</kw>
+<msg timestamp="20180706 17:37:22.475" level="FAIL">Link with locator '//html/body/div[2]/div/div[1]/nav/ul/li[5]/a' not found.</msg>
+<status status="FAIL" starttime="20180706 17:37:20.571" endtime="20180706 17:37:22.475"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:37:20.570" endtime="20180706 17:37:22.476" critical="yes">Link with locator '//html/body/div[2]/div/div[1]/nav/ul/li[5]/a' not found.</status>
+</test>
+<test id="s1-t13" name="Testing: Adding Transactions">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[1]/nav/ul/li[5]/ul/li/a</arg>
+</arguments>
+<msg timestamp="20180706 17:37:22.478" level="INFO">Clicking link '//html/body/div[2]/div/div[1]/nav/ul/li[5]/ul/li/a'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:37:24.376" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-164.png"&gt;&lt;img src="selenium-screenshot-164.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:37:23.394" endtime="20180706 17:37:24.377"></status>
+</kw>
+<msg timestamp="20180706 17:37:24.378" level="FAIL">Link with locator '//html/body/div[2]/div/div[1]/nav/ul/li[5]/ul/li/a' not found.</msg>
+<status status="FAIL" starttime="20180706 17:37:22.478" endtime="20180706 17:37:24.378"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:37:22.477" endtime="20180706 17:37:24.378" critical="yes">Link with locator '//html/body/div[2]/div/div[1]/nav/ul/li[5]/ul/li/a' not found.</status>
+</test>
+<test id="s1-t14" name="Testing: Renewing Borrowed Book">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/table/tbody/tr[2]/td[5]/a</arg>
+</arguments>
+<msg timestamp="20180706 17:37:24.382" level="INFO">Clicking link '//html/body/div[2]/div/div[3]/table/tbody/tr[2]/td[5]/a'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:37:26.282" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-165.png"&gt;&lt;img src="selenium-screenshot-165.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:37:25.298" endtime="20180706 17:37:26.283"></status>
+</kw>
+<msg timestamp="20180706 17:37:26.283" level="FAIL">Link with locator '//html/body/div[2]/div/div[3]/table/tbody/tr[2]/td[5]/a' not found.</msg>
+<status status="FAIL" starttime="20180706 17:37:24.381" endtime="20180706 17:37:26.284"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:37:24.380" endtime="20180706 17:37:26.284" critical="yes">Link with locator '//html/body/div[2]/div/div[3]/table/tbody/tr[2]/td[5]/a' not found.</status>
+</test>
+<test id="s1-t15" name="Testing: Returning Book">
+<kw name="Click Link" library="SeleniumLibrary">
+<doc>Clicks a link identified by ``locator``.</doc>
+<arguments>
+<arg>//html/body/div[2]/div/div[3]/table/tbody/tr[2]/td[7]/a</arg>
+</arguments>
+<msg timestamp="20180706 17:37:26.288" level="INFO">Clicking link '//html/body/div[2]/div/div[3]/table/tbody/tr[2]/td[7]/a'.</msg>
+<kw name="Capture Page Screenshot" library="SeleniumLibrary">
+<doc>Takes screenshot of the current page and embeds it into log file.</doc>
+<msg timestamp="20180706 17:37:28.187" level="INFO" html="yes">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-166.png"&gt;&lt;img src="selenium-screenshot-166.png" width="800px"&gt;&lt;/a&gt;</msg>
+<status status="PASS" starttime="20180706 17:37:27.202" endtime="20180706 17:37:28.187"></status>
+</kw>
+<msg timestamp="20180706 17:37:28.188" level="FAIL">Link with locator '//html/body/div[2]/div/div[3]/table/tbody/tr[2]/td[7]/a' not found.</msg>
+<status status="FAIL" starttime="20180706 17:37:26.287" endtime="20180706 17:37:28.188"></status>
+</kw>
+<status status="FAIL" starttime="20180706 17:37:26.286" endtime="20180706 17:37:28.188" critical="yes">Link with locator '//html/body/div[2]/div/div[3]/table/tbody/tr[2]/td[7]/a' not found.</status>
+</test>
+<status status="FAIL" starttime="20180706 17:36:40.866" endtime="20180706 17:37:28.193"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="12">Critical Tests</stat>
+<stat pass="3" fail="12">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="3" fail="12" id="s1" name="Test-Locallibrary">Test-Locallibrary</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
