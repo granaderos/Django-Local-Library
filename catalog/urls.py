@@ -22,5 +22,7 @@ urlpatterns = [
     path('book/<int:pk>/return/', views.return_book, name='return-book'),
     path('transaction/history/', views.TransactionHistoryListView.as_view(), name='transaction-history'),
     path('book/<int:pk>/add-instance/', views.create_book_instance, name='add-book-instance'),
-    
+    path('user/new', views.create_new_user, name='user-new'),
+    path('users', views.UserListView.as_view(), name='users')
+
 ]

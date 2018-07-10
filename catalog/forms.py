@@ -28,7 +28,6 @@ class CreateTransactionForm(forms.Form):
     books = Book.objects.all().values('id', 'title')
 
     id_title_dictionary = {}
-
     book_choices = []
 
     for item in books:
@@ -58,3 +57,14 @@ class CreateBookInstanceForm(forms.Form):
         ('r', 'Reserved'),
     )
     status = forms.ChoiceField(choices=STATUS_VALUES, widget=forms.Select(attrs={'class': 'form-control'}))
+
+
+class CreateUserForm(forms.Form):
+    IS_STAFF_VALUES = (('f', 'NO'), ('t', 'YES'))
+    
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    is_staff = forms.ChoiceField(choices=IS_STAFF_VALUES, widget=forms.Select(attrs={'class': 'form-control'}))
+    
+

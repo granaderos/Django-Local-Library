@@ -7,7 +7,9 @@ from django.views import generic
 from django.views.generic import edit
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db import connection
 from .models import Book
 from .models import Author
 from .models import BookInstance
@@ -17,6 +19,7 @@ from .forms import RenewBookForm
 from .forms import CreateTransactionForm
 from .forms import ReturnBookForm
 from .forms import CreateBookInstanceForm
+from .forms import CreateUserForm
 
 import datetime
 # Create your views here.
@@ -48,6 +51,7 @@ def index(request):
     )
 
 #@permission_required('catalog.can_mark_returned')
+@login_required
 def renew_book_librarian(request, pk):
     trans = get_object_or_404(Transaction, pk=pk)
 
@@ -64,6 +68,7 @@ def renew_book_librarian(request, pk):
 
     return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'trans': trans})
 
+@login_required
 def create_new_transaction(request):
     # trans = get_object_or_404(Transaction, pk=pk)
     form = CreateTransactionForm(request.POST or None)
@@ -116,7 +121,29 @@ def create_book_instance(request, pk):
             return HttpResponseRedirect(reverse('book-detail', kwargs={'pk': pk}))    
 
     return render(request, 'catalog/bookinstance_add.html', {'form': form, 'book': book})
-    
+
+def create_new_user(request):
+    form = CreateUserForm(request.POST or None)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            # c_password = form.cleaned_data['confirm_password']
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            is_staff = form.cleaned_data['is_staff']
+            user = User.objects.create(username=username, password=password, is_staff=is_staff)
+            user.save()
+            return HttpResponseRedirect(reverse('users'))
+        
+    return render(request, 'catalog/create_user.html', {'form': form})
+
+
+class UserListView(generic.ListView):
+    model = User
+    context_object_name = 'user_list'
+    queryset = User.objects.all()
+    template_name = 'catalog/user_list.html'
+    paginate_by = 5
 
 class BookListView(generic.ListView):
     model = Book
@@ -150,7 +177,7 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return Transaction.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+        return Transaction.objects.filter(borrower=self.request.user)
 
 
 class TransactionsListView(LoginRequiredMixin, generic.ListView):
@@ -159,6 +186,12 @@ class TransactionsListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
     def get_queryset(self):
+        # cursor = connection.cursor()
+        # query = "SELECT t.* FROM catalog_transaction as t, catalog_bookinstance as bi WHERE t.book_instance_id = bi.id AND bi.status = 'o';"
+        # cursor.execute(query)
+        # transaction_list =  cursor.fetchall()
+
+        # return transaction_list
         return Transaction.objects.filter(date_returned__isnull=True)
         # return BookInstance.objects.all()
 

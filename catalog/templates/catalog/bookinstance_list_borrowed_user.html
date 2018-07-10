@@ -4,17 +4,35 @@
 
     <h1>Borrowed Books</h1>
 
-    {% if bookinstance_list %}
-        <ul>
-            {% for bookinst in bookinstance_list %}
-                <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">
-                    <a href="{% url 'book-detail' bookinst.book.pk %}">
-                        {{ bookinst.book.title }}
-                    </a>
-                    ({{ bookinst.due_back }})
-                </li>
+    {% if transaction_list %}
+        <table class="table">
+            <tr>
+                <th>Book</th>
+                <th>Date Borrowed</th>
+                <th>Due Date</th>
+                <th>Returned?</th>
+            </tr>
+            {% for trans in transaction_list %}
+                <!-- <li class="{% if trans.is_overdue %}text-danger{% endif %}"> -->
+                <tr class="">
+                    <td>
+                        <a href="{% url 'book-detail' trans.id %}">
+                            {{ trans.book_instance.book.title }}
+                        </a>
+                    </td>
+                    <td>{{ trans.date_borrowed }}</td>
+                    <td class="{% if trans.is_overdue and trans.book_instance.status == 'o' %} text-danger {% endif %} ">{{ trans.due_back }}</td>
+                    <td>
+                        {% if trans.book_instance.status == 'a' %}
+                            <span class="fa fa-check"></span>
+                            ({{ trans.date_returned }})
+                        {% else %}
+                            <span class="">Not yet</span>
+                        {% endif %}
+                    </td>
+                </tr>
             {% endfor %}
-        </ul>
+            </table>
     {% else %}
         <p>There are no books borrowed.</p>
     {% endif %}

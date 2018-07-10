@@ -87,7 +87,7 @@ class Transaction(models.Model):
 
     @property
     def is_overdue(self):
-        if self.due_back and datetime.today() > self.due_back:
+        if self.due_back and datetime.today().date() > self.due_back:
             return True
         return False
 
