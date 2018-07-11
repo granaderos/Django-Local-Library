@@ -8,15 +8,23 @@ import uuid
 
 # Create your models here.
 
+# class User(models.Model):
+#     first_name = models.CharField(max_lenth=50)
+#     last_name = models.CharField(max_length=50)
+#     username = models.CharField(max_length=50)
+#     email = models.CharField(max_length=100)
+
+
+
 class Genre(models.Model):
-    name = models.CharField(max_length=200, help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)")
+    name = models.CharField(max_length=200, unique=True, help_text="Enter a book genre (e.g. Science Fiction, French Poetry etc.)")
 
     def __str__(self):
         return self.name
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, unique=True)
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book.')
     isbn = models.CharField('ISBN', max_length=13, help_text='13 character ISBN number.')
@@ -40,7 +48,7 @@ class Language(models.Model):
         ('German', 'German'),
     ]
 
-    name = models.CharField(max_length=100, choices=LANGUAGES, blank=True)
+    name = models.CharField(max_length=100, choices=LANGUAGES, unique=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -60,18 +68,11 @@ class BookInstance(models.Model):
 
     status = models.CharField(max_length=1, choices=STATUS_VALUES, blank=True, default='m', help_text='Book availability')
 
-    # class Meta:
-    #     ordering = ['due_back']
-    #     permissions = (('can_mark_returned', 'Set book as returned'),)
+    class Meta:
+        permissions = (('can_mark_returned', 'Set book as returned'),)
 
     def __str__(self):
         return '{0} ({1})'.format(self.book.title, self.id)
-
-    # @property
-    # def is_overdue(self):
-    #     if self.due_back and datetime.today() > self.due_back:
-    #         return True
-    #     return False
 
 
 class Transaction(models.Model):

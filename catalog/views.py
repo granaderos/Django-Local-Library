@@ -6,10 +6,12 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import edit
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db import connection
+from guardian.shortcuts import assign_perm
 from .models import Book
 from .models import Author
 from .models import BookInstance
@@ -50,8 +52,8 @@ def index(request):
         }
     )
 
-#@permission_required('catalog.can_mark_returned')
 @login_required
+@permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
     trans = get_object_or_404(Transaction, pk=pk)
 
@@ -69,6 +71,7 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'trans': trans})
 
 @login_required
+@permission_required('catalog.add_transaction')
 def create_new_transaction(request):
     # trans = get_object_or_404(Transaction, pk=pk)
     form = CreateTransactionForm(request.POST or None)
@@ -87,6 +90,8 @@ def create_new_transaction(request):
             return HttpResponseRedirect(reverse('transactions'))
     return render(request, 'catalog/create_transaction.html', {'form': form})
 
+@login_required
+@permission_required('catalog.change_transaction')
 def return_book(request, pk):
     trans = get_object_or_404(Transaction, pk=pk)
     book_instance = get_object_or_404(BookInstance, pk=trans.book_instance.id)
@@ -107,7 +112,8 @@ def return_book(request, pk):
 
     return render(request, 'catalog/return_book.html', {'form': form, 'trans': trans})
 
-
+@login_required
+@permission_required('catalog.add_bookinstance')
 def create_book_instance(request, pk):
     book = get_object_or_404(Book, pk=pk)
     form = CreateBookInstanceForm(request.POST or None)
@@ -122,6 +128,8 @@ def create_book_instance(request, pk):
 
     return render(request, 'catalog/bookinstance_add.html', {'form': form, 'book': book})
 
+@login_required
+@permission_required('catalog.add_user')
 def create_new_user(request):
     form = CreateUserForm(request.POST or None)
 
@@ -133,13 +141,19 @@ def create_new_user(request):
             is_staff = form.cleaned_data['is_staff']
             user = User.objects.create(username=username, password=password, is_staff=is_staff)
             user.save()
+
+            if is_staff:
+                assign_perm('catalog.can_mark_returned', user)
+                assign_perm('catalog.add_transaction', user)
+
             return HttpResponseRedirect(reverse('users'))
         
     return render(request, 'catalog/create_user.html', {'form': form})
 
 
-class UserListView(generic.ListView):
+class UserListView(LoginRequiredMixin, generic.ListView):
     model = User
+    # permission_required = 'catalog.view_users'
     context_object_name = 'user_list'
     queryset = User.objects.all()
     template_name = 'catalog/user_list.html'
@@ -205,32 +219,38 @@ class TransactionHistoryListView(LoginRequiredMixin, generic.ListView):
         return Transaction.objects.all().order_by('date_borrowed')
 
 
-class AuthorCreate(LoginRequiredMixin, edit.CreateView):
+class AuthorCreate(LoginRequiredMixin, PermissionRequiredMixin, edit.CreateView):
     model = Author
+    permission_required = 'catalog.add_author'
     fields = '__all__'
     #initial = {'date_of_death': '05/01/2018'}
 
 
-class AuthorUpdate(LoginRequiredMixin, edit.UpdateView):
+class AuthorUpdate(LoginRequiredMixin, PermissionRequiredMixin, edit.UpdateView):
     model = Author
+    permission_required = 'catalog.change_author'
     fields = ['first_name', 'last_name', 'date_of_birth', 'date_of_death']
  
 
-class AuthorDelete(LoginRequiredMixin, edit.DeleteView):
+class AuthorDelete(LoginRequiredMixin, PermissionRequiredMixin, edit.DeleteView):
     model = Author
+    permission_required = 'catalog.delete_author'
     success_url = reverse_lazy('authors')
 
 
-class BookCreate(LoginRequiredMixin, edit.CreateView):
+class BookCreate(LoginRequiredMixin, PermissionRequiredMixin, edit.CreateView):
     model = Book
+    permission_required = 'catalog.add_book'
     fields = '__all__'
 
 
-class BookUpdate(LoginRequiredMixin, edit.UpdateView):
+class BookUpdate(LoginRequiredMixin, PermissionRequiredMixin, edit.UpdateView):
     model = Book
+    permission_required = 'catalog.change_book'
     fields = '__all__'
 
 
-class BookDelete(LoginRequiredMixin, edit.DeleteView):
+class BookDelete(LoginRequiredMixin, PermissionRequiredMixin, edit.DeleteView):
     model = Book
+    permission_required = 'catalog.delete_book'
     success_url = reverse_lazy('books')

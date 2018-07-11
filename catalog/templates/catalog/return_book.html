@@ -1,27 +1,31 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-
-    <h2>Return Book: {{ trans.book_instance.book.title }}</h2>
-    
-    <p>
-        <strong>Book ID: {{ trans.book_instance.id }}</strong> <br>
-        <strong>Borrower: {{ trans.borrower.username }}</strong> <br>
-        <strong> 
-            {% if tans.is_overdue %}
-                class="text-danger"
-            {% endif %}
-            Due date: {{ trans.due_back }}
-        </strong>
-    </p>
-
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <br>
-        <input class="btn btn-outline-primary" type="submit" value="Confirm Return" />
-        <a class="btn btn-outline-danger" href="{% url 'transactions' %}">Cancel</a>
-    </form>
-
-
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2>Return Book: {{ trans.book_instance.book.title }}</h2>
+            </div>
+            <div class="card-body">
+                <p>
+                    <strong>Book ID: {{ trans.book_instance.id }}</strong> <br>
+                    <strong>Borrower: {{ trans.borrower.username }}</strong> <br>
+                    <strong> 
+                        {% if tans.is_overdue %}
+                            class="text-danger"
+                        {% endif %}
+                        Due date: {{ trans.due_back }}
+                    </strong>
+                </p>
+            
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <br>
+                    <input class="btn btn-outline-primary btn-block" type="submit" value="Confirm Return" />
+                    <input type="button" class="btn btn-outline-danger btn-block" onclick="javascript:window.history.back()" value="Cancel" />
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}

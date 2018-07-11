@@ -68,6 +68,7 @@
             It is the {% now "jS \o\f F" %} <br />
             {% now "Y" as current_year %}
             Copyright {{ current_year }}
+            Permission: {{ perms.catalog.can_mark_returned }}
 
         </p>
     </div>
