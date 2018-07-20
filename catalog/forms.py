@@ -9,6 +9,13 @@ from .models import Book
 import datetime
 
 
+STATUS_VALUES = (
+        ('a', 'Available'),
+        ('m', 'Maintenance'),
+        ('o', 'On loan'),
+        ('r', 'Reserved'),
+    )
+
 class CustomAuthenticationForm(AuthenticationForm, forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
@@ -56,12 +63,7 @@ class ReturnBookForm(forms.Form):
 
 
 class CreateBookInstanceForm(forms.Form):
-    STATUS_VALUES = (
-        ('a', 'Available'),
-        ('m', 'Maintenance'),
-        ('o', 'On loan'),
-        ('r', 'Reserved'),
-    )
+    
     status = forms.ChoiceField(choices=STATUS_VALUES, widget=forms.Select(attrs={'class': 'form-control'}))
 
 
@@ -74,3 +76,5 @@ class CreateUserForm(forms.Form):
     is_staff = forms.ChoiceField(choices=IS_STAFF_VALUES, widget=forms.Select(attrs={'class': 'form-control'}))
     
 
+class UpdateBookStatusForm(forms.Form):
+    new_status = forms.ChoiceField(choices=STATUS_VALUES, widget=forms.Select(attrs={'class': 'form-control'}))

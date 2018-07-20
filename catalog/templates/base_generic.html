@@ -15,8 +15,10 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome-free-5.1.0-web/css/all.css' %}" />
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    
+    <script src="{% static 'js/angular.min.js' %}"></script>
+    <script src="{% static 'js/angular_script.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
+
     <body>
         <div class="alert alert-primary">
             <h1>Local Library</h1>
@@ -35,7 +37,7 @@
                                         <div class="btn-group">
                                             <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fa fa-book fa-fw"></i>
-                                                    <span class="d-none d-sm-inline">Books</span>
+                                                    <span class="d-none d-sm-inline font-weight-bold">Books</span>
                                             </a>
                                             <div class="dropdown-menu">
                                                 <a class="nav-link text-truncate" href="{% url 'books' %}">List of Books</a>
@@ -43,7 +45,7 @@
                                             </div>
                                         </div>                                    
                                     {% else %}
-                                        <a class="nav-link text-truncate" href="{% url 'books' %}"><i class="fa fa-book fa-fw"></i> <span class="d-none d-sm-inline">Books</span></a>
+                                        <a class="nav-link text-truncate" href="{% url 'books' %}"><i class="fa fa-book fa-fw"></i> <span class="d-none d-sm-inline font-weight-bold">Books</span></a>
                                     {% endif %}
                                 </li>
                                 <li class="nav-item w-100">
@@ -52,7 +54,7 @@
                                         <div class="btn-group">
                                             <a href="" class="nav-link text-truncate dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                     <i class="fa fa-users fa-fw"></i>
-                                                    <span class="d-none d-sm-inline">Authors</span>
+                                                    <span class="d-none d-sm-inline font-weight-bold">Authors</span>
                                             </a>
                                             <div class="dropdown-menu">
                                                 <a class="nav-link text-truncate" href="{% url 'authors' %}">List of Authors</a>
@@ -60,7 +62,7 @@
                                             </div>
                                         </div>                                    
                                     {% else %}
-                                        <a class="nav-link text-truncate" href="{% url 'authors' %}"><i class="fa fa-users fa-fw"></i> <span class="d-none d-sm-inline">Authors</span></a>
+                                        <a class="nav-link text-truncate" href="{% url 'authors' %}"><i class="fa fa-users fa-fw"></i> <span class="d-none d-sm-inline font-weight-bold">Authors</span></a>
                                     {% endif %}
                                 </li>
                                 {% if user.is_authenticated %}
@@ -69,7 +71,7 @@
                                             <div class="btn-group">
                                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="fa fa-exchange-alt fa-fw"></i>
-                                                        <span class="d-none d-sm-inline">Transactions</span>
+                                                        <span class="d-none d-sm-inline font-weight-bold">Transactions</span>
                                                 </a>
                                                 <div class="dropdown-menu">
                                                     <a class="nav-link text-truncate" href="{% url 'transaction-create' %}">New Transaction</a>
@@ -82,7 +84,7 @@
                                             <div class="btn-group">
                                                 <a href="" class="nav-link text-truncate dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                         <i class="fa fa-users-cog fa-fw"></i>
-                                                        <span class="d-none d-sm-inline">Library Users</span>
+                                                        <span class="d-none d-sm-inline font-weight-bold">Library Users</span>
                                                 </a>
                                                 <div class="dropdown-menu">
                                                     <a class="nav-link text-truncate" href="{% url 'users' %}">List of Users</a>
@@ -92,74 +94,24 @@
                                         </li>                                                                                                                                
                                     {% else %}                                  
                                         <li class="nav-item w-100">
-                                            <a class="nav-link" href="{% url 'my-borrowed' %}"><i class="fa fa-exchange-alt fa-fw"></i><span class="d-none d-sm-inline">Borrowed Books</span></a>
+                                            <a class="nav-link" href="{% url 'my-borrowed' %}"><i class="fa fa-exchange-alt fa-fw"></i><span class="d-none d-sm-inline font-weight-bold">Borrowed Books</span></a>
                                         </li>
                                     {% endif %}
                                     <li class="nav-item w-100">
-                                        <a class="nav-link text-nowrap" href="{% url 'logout' %}?next={% url 'index' %}"><i class="fa fa-sign-out-alt fa-fw"></i><span class="d-none d-sm-inline">Logout</span></a>
+                                        <a class="nav-link text-nowrap" href="{% url 'logout' %}?next={% url 'index' %}"><i class="fa fa-sign-out-alt fa-fw"></i><span class="d-none d-sm-inline font-weight-bold">Logout</span></a>
                                     </li>
                                     <li class="nav-item w-100">
-                                            <span class="nav-link text-truncate"><i class="fa fa-user-circle fa-fw" data-toggle="tooltip" data-placement="right" title="{{ user.get_username }}"></i><span class="d-none d-sm-inline">{{ user.get_username }}</span></span>
+                                            <span class="nav-link text-truncate"><i class="fa fa-user-circle fa-fw" data-toggle="tooltip" data-placement="right" title="{{ user.get_username }}"></i><span class="d-none d-sm-inline font-weight-bold">{{ user.get_username }}</span></span>
                                         </li>
                                 {% else %}
                                     <li class="nav-item w-100">
-                                        <a class="nav-link text-truncate" href="{% url 'login' %}"><i class="fa fa-sign-in-alt fa-fw"></i> <span class="d-none d-sm-inline">Log-in</span></a>
+                                        <a class="nav-link text-truncate" href="{% url 'login' %}"><i class="fa fa-sign-in-alt fa-fw"></i> <span class="d-none d-sm-inline font-weight-bold">Log-in</span></a>
                                     </li>
                                 {% endif %}
                             </ul>
                         </div>
                     </nav>
                 </aside>
-
-
-
-            <!-- <div class="row"> -->
-                <!-- <div class="col-sm-2">
-                    {% block sidebar %}
-                    
-                        <!-- insert sidebar -->
-                        <!-- <nav class="navbar flex-column bg-light">
-                            <ul class="navbar-nav">
-                                    <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}">Home</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{% url 'books' %}">All Books</a></li>
-                                    {% if user.is_authenticated and user.is_staff %}
-                                        <ul>
-                                            <li><a href="{% url 'book-create' %}">Add Book</a></li>
-                                        </ul>
-                                        
-                                        {% endif %}
-                                    <li class="nav-item"><a class="nav-link" href="{% url 'authors' %}">All Authors</a></li>
-                                    {% if user.is_authenticated %}
-                                        {% if user.is_staff %}
-                                            <li>
-                                                <ul>
-                                                    <li><a href="{% url 'author-create' %}">Create Author</a></li></li>
-                                                </ul>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="{% url 'transactions' %}">Transactions</a>
-                                                <ul>
-                                                    <li><a href="{% url 'transaction-create' %}">New Transaction</a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="nav-item"><a class="nav-link" href="{% url 'transaction-history' %}">Transaction History</a></li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="{% url 'users' %}">Users</a>
-                                                <ul>
-                                                    <li class="nav-item"><a class="nav-link" href="{% url 'user-create' %}">Create New User</a></li>                                        
-                                                </ul>                                            
-                                            </li>                                                                                                                                {% else %}                                    
-                                            <li class="nav-item"><a class="nav-link" href="{% url 'my-borrowed' %}">My Borrowed</a></li>
-                                        {% endif %}
-                                        <li>User: {{ user.get_username }}</li>
-                                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
-                                    {% else %}
-                                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-                                    {% endif %}
-                                </ul>
-                        </nav> -->
-                        
-                    {% endblock %}
-                <!-- </div>  -->
 
                 <div class="invisible" id="popup_div"></div>
 
@@ -171,41 +123,30 @@
                     {% block pagination %}
                         {% if is_paginated %}
                             <ul class="pagination justify-content-center">
-                                    <!-- {% if page_obj.has_previous %}
-                                        <a class="btn btn-primary" href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
-                                    {% endif %}
-                                    <span class="page-current">
-                                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                                    </span>
-                                    {% if page_obj.has_next %}
-                                        <a class="btn btn-primary" href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
-                                    {% endif %} -->
-
-                                    {% if page_obj.has_previous %}
-                                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                                {% if page_obj.has_previous %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                                {% endif %}
+                                {% for i in paginator.page_range %}
+                                    {% if page_obj.number == i %}
+                                        <li class="page-item active">
+                                            <span class="page-link active">{{ i }}</span>
+                                            <span class="sr-only">(current)</span>
+                                        </li>
                                     {% else %}
-                                        <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+                                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
                                     {% endif %}
-                                    {% for i in paginator.page_range %}
-                                        {% if page_obj.number == i %}
-                                            <li class="page-item active">
-                                                <span class="page-link active">{{ i }}</span>
-                                                <span class="sr-only">(current)</span>
-                                            </li>
-                                        {% else %}
-                                            <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% if page_obj.has_next %}
-                                        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-                                    {% else %}
-                                        <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
-                                    {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                    <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+                                {% endif %}
                             </ul>
                         {% endif %}
                     {% endblock %}
                 </div>
-            <!-- </div> -->
         </div>
     </body>
 </html>

@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
-
 from datetime import datetime
 
 import uuid
@@ -33,6 +32,9 @@ class Book(models.Model):
     language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
     #copies = models.IntegerField(default=0)
     
+    class Meta:
+        permissions = (('view_book_detail', 'Can view book detail'),)
+
     def __str__(self):
         return self.title
 
@@ -68,9 +70,6 @@ class BookInstance(models.Model):
 
     status = models.CharField(max_length=1, choices=STATUS_VALUES, blank=True, default='m', help_text='Book availability')
 
-    class Meta:
-        permissions = (('can_mark_returned', 'Set book as returned'),)
-
     def __str__(self):
         return '{0} ({1})'.format(self.book.title, self.id)
 
@@ -82,6 +81,12 @@ class Transaction(models.Model):
     date_returned = models.DateField(null=True, blank=True)
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True) 
     remark = models.TextField(max_length=1000, null=True, blank=True, help_text="Condition of the book when returned.")
+
+    class Meta:
+        permissions = (
+            ('view_transactions_by_user', 'Can view transactions by current user'),
+            ('view_transactions', 'Can view transactions'),
+        )
 
     def __str__(self):
         return 'Book Instance ID: {0}\nBorrower ID: {1}'.format(self.book_instance, self.borrower)
@@ -100,6 +105,8 @@ class Author(models.Model):
 
     class Meta:
         ordering = ['last_name', 'first_name']
+        permissions = (('view_author_detail', 'Can view author detail'),)
+
 
     def get_absolute_url(self):
         return reverse('author-detail', args=[str(self.id)])

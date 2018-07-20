@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
+from django.shortcuts import HttpResponse
 from django.http import HttpResponseRedirect
+from django.http import JsonResponse
 from django.urls import reverse
 from django.urls import reverse_lazy
 from django.views import generic
@@ -10,6 +12,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.core.serializers import serialize
 from django.db import connection
 from guardian.shortcuts import assign_perm
 from .models import Book
@@ -22,8 +25,10 @@ from .forms import CreateTransactionForm
 from .forms import ReturnBookForm
 from .forms import CreateBookInstanceForm
 from .forms import CreateUserForm
+from .forms import UpdateBookStatusForm
 
 import datetime
+import json
 # Create your views here.
 
 def index(request):
@@ -53,7 +58,7 @@ def index(request):
     )
 
 @login_required
-@permission_required('catalog.can_mark_returned')
+@permission_required('catalog.change_trasaction')
 def renew_book_librarian(request, pk):
     trans = get_object_or_404(Transaction, pk=pk)
 
@@ -129,7 +134,7 @@ def create_book_instance(request, pk):
     return render(request, 'catalog/bookinstance_add.html', {'form': form, 'book': book})
 
 @login_required
-@permission_required('catalog.add_user')
+# @permission_required('catalog.add_user')
 def create_new_user(request):
     form = CreateUserForm(request.POST or None)
 
@@ -142,14 +147,69 @@ def create_new_user(request):
             user = User.objects.create(username=username, password=password, is_staff=is_staff)
             user.save()
 
-            if is_staff:
-                assign_perm('catalog.can_mark_returned', user)
+            if is_staff == 't':
+                assign_perm('auth.add_user', user)
+                assign_perm('auth.change_user', user)
+                assign_perm('auth.delete_user', user)
+                assign_perm('catalog.add_book', user)
+                assign_perm('catalog.change_book', user)
+                assign_perm('catalog.delete_book', user)
+                assign_perm('catalog.add_author', user)
+                assign_perm('catalog.change_author', user)
+                assign_perm('catalog.delete_author', user)
+                assign_perm('catalog.add_bookinstance', user)
+                assign_perm('catalog.change_bookinstance', user)
+                assign_perm('catalog.delete_bookinstance', user)
                 assign_perm('catalog.add_transaction', user)
+                assign_perm('catalog.change_transaction', user)
+                assign_perm('catalog.delete_transaction', user)
+                assign_perm('catalog.view_transactions', user)
+            else:
+                assign_perm('catalog.view_transactions_by_user', user)
+            
+            assign_perm('catalog.view_book_detail', user)
+            assign_perm('catalog.view_author_detail', user)
+                
 
             return HttpResponseRedirect(reverse('users'))
         
     return render(request, 'catalog/create_user.html', {'form': form})
 
+@login_required
+@permission_required('catalog.add_bookinstance')
+def update_book_status(request, pk):
+    form = UpdateBookStatusForm(request.POST or None)
+    book_instance = get_object_or_404(BookInstance, pk=pk)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            new_status = form.cleaned_data['new_status']
+
+            book_instance.status = new_status
+            book_instance.save()
+            return HttpResponseRedirect(reverse('book-detail', kwargs={'pk': book_instance.book.id}))    
+
+    return render(request, 'catalog/update_book_status.html', {'form': form, 'book_instance': book_instance})
+
+def search_book(request):
+    if request.method == 'GET':
+        keyword = request.GET['book_keyword']
+        # books = Book.objects.filter(title__icontains=keyword)
+
+        cursor = connection.cursor()
+        cursor.execute("SELECT b.id, b.title, a.first_name, a.last_name FROM catalog_book AS b, catalog_author AS a WHERE UPPER(b.title) LIKE UPPER(%s) AND b.author_id = a.id", ['%'+keyword+'%'])
+        books = cursor.fetchall()
+        data = []
+        for row in books:
+            dict_book = {}
+            dict_book["pk"] = row[0]
+            dict_book["title"] = row[1]
+            dict_book["author"] = row[3] + ", " + row[2]
+            data.append(dict_book)
+        data = json.dumps(data)
+        return HttpResponse(json.dumps(data), content_type="application/json")
+        # return HttpResponse(books)
+    return render(request, "catalog/book_list.html")
 
 class UserListView(LoginRequiredMixin, generic.ListView):
     model = User
@@ -164,11 +224,12 @@ class BookListView(generic.ListView):
     context_object_name = 'book_list'
     queryset = Book.objects.all()
     template_name = 'book_list.html'
-    paginate_by = 13
+    paginate_by = 10
 
 
-class BookDetailView(LoginRequiredMixin, generic.DetailView):
+class BookDetailView(LoginRequiredMixin, PermissionRequiredMixin, generic.DetailView):
     model = Book
+    permission_required = 'catalog.view_book_detail'
     template_name = 'catalog/book_detail.html'
 
 
@@ -180,13 +241,15 @@ class AuthorListView(generic.ListView):
     paginate_by = 5
 
 
-class AuthorDetailView(LoginRequiredMixin, generic.DetailView):
+class AuthorDetailView(LoginRequiredMixin, PermissionRequiredMixin, generic.DetailView):
     model = Author
+    permission_required = 'catalog.view_author_detail'
     template_name = 'catalog/author_detail.html'
 
 
-class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
+class LoanedBooksByUserListView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
     model = Transaction
+    permission_required = 'catalog.view_transactions_by_user'
     template_name = 'catalog/bookinstance_list_borrowed_user.html'
     paginate_by = 5
 
@@ -194,8 +257,9 @@ class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
         return Transaction.objects.filter(borrower=self.request.user)
 
 
-class TransactionsListView(LoginRequiredMixin, generic.ListView):
+class TransactionsListView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
     model = Transaction
+    permission_required = 'catalog.view_transactions'
     template_name = 'catalog/transactions.html'
     paginate_by = 5
 
@@ -210,8 +274,9 @@ class TransactionsListView(LoginRequiredMixin, generic.ListView):
         # return BookInstance.objects.all()
 
 
-class TransactionHistoryListView(LoginRequiredMixin, generic.ListView):
+class TransactionHistoryListView(LoginRequiredMixin, PermissionRequiredMixin, generic.ListView):
     model = Transaction
+    permission_required = 'catalog.view_transactions'
     templete_name = 'catalog/transaction_history.html'
     paginate_by = 5
 

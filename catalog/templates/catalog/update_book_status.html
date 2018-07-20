@@ -1,0 +1,29 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h2>Update Book Status</h2>
+    <strong>Book Title: </strong>{{ book_instance.book.title }}<br>
+    <strong>Instance ID: </strong>{{ book_instance.id }}<br>
+    <strong>Current Status: </strong>
+    {% if book_instance.status == 'a' %}
+        Available
+    {% elif book_instance.status == 'm' %}
+        Under Maintenance
+    {% elif book_instance.status == 'o' %}
+        On Loan
+    {% else %}
+        Reserved
+    {% endif %}
+
+    
+    <br>
+    <br>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-outline-primary btn-block" value="Submit" />
+        <a href="javascript:window.history.back()" class="btn btn-outline-danger btn-block">Cancel</a>
+    </form>
+
+
+{% endblock %}c

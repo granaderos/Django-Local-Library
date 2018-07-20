@@ -2,9 +2,10 @@
 
 {% block content %}
 
-    <form action="" method="GET">
+    <form method="GET" id="form_search_book">
+        {% csrf_token %}
         <div class="input-group add-on float-right" style="width: 300px !important;">
-            <input class="form-control" placeholder="Search" id="book-term" type="text">
+            <input class="form-control" placeholder="Search" name="book_keyword" id="book_keyword" type="text">
             <div class="input-group-btn">
                 <button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
             </div>
@@ -18,22 +19,27 @@
             <tr>
                 <th>Title</th>
                 <th>Author</th>
-                <th>Action</th>
+                {% if user.is_authenticated and user.is_staff %}
+                    <th id="th_book_action">Action</th>
+                {% endif %}
             </tr>
-            {% for book in book_list %}
-                <tr>
-                    <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
-                    <td>{{ book.author }}</td>
-                    {% if user.is_authenticated and user.is_staff %}
-                        <td>
-                            <a href="{% url 'book-update' book.id %}" data-toggle="tooltip" data-placement="top" title="Edit book information."><span class="fa fa-edit"></span></a> | 
-                            <a href="{% url 'book-delete' book.id %}" data-toggle="tooltip" data-placement="bottom" title="Delete this book."><span class="fa fa-trash-alt"></span></a>
-                        </td>
-                    {% endif %}
+            <tbody id="tbody_book_list">
 
-                </tr>
-            {% endfor %}
-            </table>
+                {% for book in book_list %}
+                    <tr>
+                        <td><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></td>
+                        <td>{{ book.author }}</td>
+                        {% if user.is_authenticated and user.is_staff %}
+                            <td>
+                                <a href="{% url 'book-update' book.id %}" data-toggle="tooltip" data-placement="top" title="Edit book information."><span class="fa fa-edit"></span></a> | 
+                                <a href="{% url 'book-delete' book.id %}" data-toggle="tooltip" data-placement="bottom" title="Delete this book."><span class="fa fa-trash-alt"></span></a>
+                            </td>
+                        {% endif %}
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
     {% else %}
         <p>There are no books in the library.</p>

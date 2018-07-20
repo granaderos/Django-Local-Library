@@ -47,6 +47,8 @@
                 {% endif %}
                 ">
                 {{ copy.get_status_display }}
+                <a class='' href="{% url 'update-book-status' copy.id %}"><small>[update status]</small></a>
+
             </p>
             <p class="text-muted"><strong>Id: </strong> {{ copy.id }}</p>
         {% endfor %}
@@ -69,6 +71,15 @@
             {% now "Y" as current_year %}
             Copyright {{ current_year }}
             Permission: {{ perms.catalog.can_mark_returned }}
+            <md-content ng-controller="AppCtrl as ctrl" layout-padding ng-cloak>
+                <div layout-gt-xs="row">
+                  <div flex-gt-xs>
+                    <h4>Standard date-picker</h4>
+                    <md-datepicker ng-model="ctrl.myDate" md-placeholder="Enter date"></md-datepicker>
+                  </div>
+                </div>
+            </md-content>
+            <p>Date: <input type="text" id="datepicker"></p>
 
         </p>
     </div>
