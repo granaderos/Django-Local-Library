@@ -23,8 +23,9 @@
                     <td>{{ trans.date_borrowed }}</td>
                     <td class="{% if trans.is_overdue and trans.book_instance.status == 'o' %} text-danger {% endif %} ">{{ trans.due_back }}</td>
                     <td>
-                        {% if trans.book_instance.status == 'a' %}
-                            <span class="fa fa-check"></span>
+                        {#{% if trans.book_instance.status == 'a' %}#}
+                        {% if trans.date_returned %}
+                            <span class="text-success fa fa-check"></span>
                             ({{ trans.date_returned }})
                         {% else %}
                             <span class="">Not yet</span>

@@ -2,11 +2,13 @@
 
 {% block content %}
 
-    <span class="float-none">
-        <a href="{% url 'book-update' book.id %}" data-toggle="tooltip" data-placement="top" title="Edit this book."><span class="fa fa-edit"></span></a> | 
-        <a href="{% url 'book-delete' book.id %}" data-toggle="tooltip" data-placement="down" title="Delete this book."><span class="fa fa-trash"></span></a> |
-        <a href="{% url 'add-book-instance' book.id %}" data-toggle="tooltip" data-placement="right" title="Add book instance."><span class="fa fa-plus"></span></a>
-    </span>
+    {% if user.is_authenticated and user.is_staff %}
+        <span class="float-none">
+            <a href="{% url 'book-update' book.id %}" data-toggle="tooltip" data-placement="top" title="Edit this book."><span class="fa fa-edit"></span></a> | 
+            <a href="{% url 'book-delete' book.id %}" data-toggle="tooltip" data-placement="down" title="Delete this book."><span class="fa fa-trash"></span></a> |
+            <a href="{% url 'add-book-instance' book.id %}" data-toggle="tooltip" data-placement="right" title="Add book instance."><span class="fa fa-plus"></span></a>
+        </span>
+    {% endif %}
     <h1>Title: {{ book.title }}</h1>
 
     <p><strong>Author: </strong> <a href="{% url 'author-detail' book.author.pk %}">{{ book.author }}</a></p>
