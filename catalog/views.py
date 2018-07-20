@@ -194,8 +194,6 @@ def update_book_status(request, pk):
 def search_book(request):
     if request.method == 'GET':
         keyword = request.GET['book_keyword']
-        # books = Book.objects.filter(title__icontains=keyword)
-
         cursor = connection.cursor()
         cursor.execute("SELECT b.id, b.title, a.first_name, a.last_name FROM catalog_book AS b, catalog_author AS a WHERE UPPER(b.title) LIKE UPPER(%s) AND b.author_id = a.id", ['%'+keyword+'%'])
         books = cursor.fetchall()
@@ -208,8 +206,41 @@ def search_book(request):
             data.append(dict_book)
         data = json.dumps(data)
         return HttpResponse(json.dumps(data), content_type="application/json")
-        # return HttpResponse(books)
     return render(request, "catalog/book_list.html")
+
+def search_author(request):
+    if request.method == 'GET':
+        keyword = request.GET['author_term']
+        #authors = Author.objects.filter(first_name__icontains=keyword)
+        #authors = serialize('json', authors)
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM catalog_author WHERE UPPER(first_name) LIKE UPPER(%s) OR UPPER(last_name) LIKE UPPER(%s)", ['%'+keyword+'%', '%'+keyword+'%'])
+        authors = cursor.fetchall()
+
+        data = []
+        for row in authors:
+            cursor.execute("SELECT title FROM catalog_book WHERE author_id = %s", [row[0]])
+            books = cursor.fetchall()
+            books_data = []
+            for book in books:
+                books_data.append(book[0])
+
+            dict_author = {}
+            dict_author["id"] = row[0]
+            dict_author["name"] = row[2] + ", " + row[1]
+            
+            date_of_birth = row[3].strftime('%m/%d/%Y')
+            date_of_death = row[4].strftime('%m/%d/%Y')
+
+            dict_author["life_span"] = date_of_birth + " - " + date_of_death
+            dict_author["books"] = books_data
+
+            data.append(dict_author)
+
+        data = json.dumps(data)
+        return HttpResponse(json.dumps(data), content_type="application/json")
+    return render(request, "catalog/author_list.html")
+
 
 class UserListView(LoginRequiredMixin, generic.ListView):
     model = User

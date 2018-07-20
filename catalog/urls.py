@@ -25,6 +25,7 @@ urlpatterns = [
     path('user/new', views.create_new_user, name='user-create'),
     path('users', views.UserListView.as_view(), name='users'),
     path('book/<uuid:pk>/update-status/', views.update_book_status, name='update-book-status'),
-    path('books/search_book', views.search_book, name='search_book')
-
+    path('books/search_book', views.search_book, name='search_book'),
+    path('authors/search_author', views.search_author, name='search_author'),
+    
 ]

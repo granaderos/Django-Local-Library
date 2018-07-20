@@ -12,6 +12,14 @@ $(function () {
     search_book(e);
   });
 
+  $("#form_search_author").submit(function(e) {
+    search_author(e);
+  });
+
+  $("#author_term").keyup(function(e) {
+    search_author(e);
+  });
+
 });
 
 function search_book(e) {
@@ -54,6 +62,51 @@ function search_book(e) {
     },
     error: function(data) {
       console.log("Error in searching book: " + JSON.stringify(data))
+    }
+  });
+}
+
+function search_author(e) {
+  e.preventDefault();
+  $.ajax({
+    type: "GET",
+    url: "search_author",
+    data: $("#form_search_author").serialize(),
+    success: function(data) {
+      console.log("author data = " + JSON.stringify(data));
+      var parsed_data = JSON.parse(data);
+      var display = "";
+      var th_author_action = document.getElementById("th_author_action");      
+      if(parsed_data.length > 0) {
+        for(var i = 0; i < parsed_data.length; i++) {
+          display +=
+            "<tr>";
+            if(th_author_action) {
+              display += 
+                "<td>" +
+                  "<a href='/catalog/author/" + parsed_data[i].id + "/delete/' data-toggle='tooltip' data-placement='top' title='Edit author information.'><span class='fa fa-user-edit'></span></a> |" + 
+                  "<a href='/catalog/author/"+ parsed_data[i].id + "/update/' data-toggle='tooltip' data-placement='right' title='Delete this author.'><span class='fa fa-trash-alt'></span></a>" +
+                "</td>";
+            }
+            display +=
+              "<td><a href='/catalog/author/" + parsed_data[i].id + "'>" + parsed_data[i].name + "</a></td>" +
+              "<td>" + parsed_data[i].life_span + "</td>" +
+              "<td><ul>";
+                for(var j = 0; j < parsed_data[i].books.length; j++) {
+                  display += "<li>" + parsed_data[i].books[j] + "</li>"
+                }
+          display +="</ul></td></tr>";
+        }
+      } else {
+        display = "<p class='alert alert-danger'>No results found;</p>"
+      }
+
+      $("#tbody_author_list").html(display);
+      $(".pagination").hide()
+
+    },
+    error: function(data) {
+      console.log("Error in searching author = " + JSON.stringify(data))
     }
   });
 }
