@@ -1,17 +1,31 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+    {% load widget_tweaks %}
     <div class="container">
         <div class="card">
             <div class="card-header">
                 <h3>User Data Form</h3>
             </div>
             <div class="card-body">
+                {% for message in messages %}
+                    <p class="alert alert-danger">{{ message|safe }}</p>
+                {% endfor %}        
                 <form action="" method="POST">
                     {% csrf_token %}
-                    <p>
-                        {{ form.as_p }}
-                    </p>
+                   
+
+                    {% for hidden_field in form.hidden_fields %}
+                        {{ hidden_field }}
+                    {% endfor %}
+                    {% for field in form.visible_fields %}
+                        <p>{{ field.label }}:</p>
+                        <p>{{ field|add_class:'form-control' }}</p>
+                        {% for error in field.errors %}
+                            <p><small class="text-danger">{{ error }}</small></p>
+                        {% endfor %}
+                    {% endfor %}
+
                     <br>
                     <input class="btn btn-outline-primary btn-block" type="submit" value="Add User" />
                     <input class="btn btn-outline-warning btn-block" type="reset" value="Reset Form" />

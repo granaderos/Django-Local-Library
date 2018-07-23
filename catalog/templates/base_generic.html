@@ -15,8 +15,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome-free-5.1.0-web/css/all.css' %}" />
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/angular.min.js' %}"></script>
-    <script src="{% static 'js/angular_script.js' %}"></script>
+    <script src="{% static 'js/moment.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
 
     <body>
@@ -87,7 +86,8 @@
                                                         <span class="d-none d-sm-inline font-weight-bold">Library Users</span>
                                                 </a>
                                                 <div class="dropdown-menu">
-                                                    <a class="nav-link text-truncate" href="{% url 'users' %}">List of Users</a>
+                                                    <a class="nav-link text-truncate" href="{% url 'users' %}">Borrowers</a>
+                                                    <a class="nav-link text-truncate" href="{% url 'librarians' %}">Librarians</a>                                                    
                                                     <a class="nav-link text-truncate" href="{% url 'user-create' %}">New User</a>
                                                 </div>
                                             </div> 

@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import edit
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
@@ -14,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.serializers import serialize
 from django.db import connection
+from django.db.models import Q
 from guardian.shortcuts import assign_perm
 from .models import Book
 from .models import Author
@@ -140,11 +142,16 @@ def create_new_user(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            # c_password = form.cleaned_data['confirm_password']
+                        
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
             username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
+            email = form.cleaned_data['email']
             is_staff = form.cleaned_data['is_staff']
-            user = User.objects.create(username=username, password=password, is_staff=is_staff)
+            password = form.cleaned_data['password']
+            # confirm_password = form.cleaned_data['confirm_password']
+
+            user = User.objects.create(first_name=first_name, last_name=last_name, username=username, email=email, password=password, is_staff=is_staff)
             user.save()
 
             if is_staff == 't':
@@ -242,12 +249,50 @@ def search_author(request):
     return render(request, "catalog/author_list.html")
 
 
-class UserListView(LoginRequiredMixin, generic.ListView):
+def search_borrower(request):
+    if request.method == 'GET':
+        keyword = request.GET['borrower_term']
+        borrowers = User.objects.filter(
+            (Q(first_name__icontains=keyword) 
+            | Q(last_name__icontains=keyword)
+            | Q(username__icontains=keyword)
+            | Q(email__icontains=keyword))
+            & Q(is_staff=False)
+        )
+        data = serialize('json', borrowers)
+        return HttpResponse(json.dumps(data), content_type="application/json")
+    return render(request, "catalog/borrower_list.html")
+
+def search_librarian(request):
+    if request.method == 'GET':
+        keyword = request.GET['librarian_term']
+        librarians = User.objects.filter(
+            (Q(first_name__icontains=keyword) 
+            | Q(last_name__icontains=keyword)
+            | Q(username__icontains=keyword)
+            | Q(email__icontains=keyword))
+            & Q(is_staff=True)
+        )
+        data = serialize('json', librarians)
+        return HttpResponse(json.dumps(data), content_type="application/json")
+    return render(request, "catalog/librarian_list.html")
+
+
+class BorrowerListView(LoginRequiredMixin, generic.ListView):
     model = User
     # permission_required = 'catalog.view_users'
     context_object_name = 'user_list'
-    queryset = User.objects.all()
-    template_name = 'catalog/user_list.html'
+    queryset = User.objects.filter(is_staff=False).order_by('date_joined')
+    template_name = 'catalog/borrower_list.html'
+    paginate_by = 5
+
+
+class LibrarianListView(LoginRequiredMixin, generic.ListView):
+    model = User
+    # permission_required = 'catalog.view_users'
+    context_object_name = 'user_list'
+    queryset = User.objects.filter(is_staff=True)
+    template_name = 'catalog/librarian_list.html'
     paginate_by = 5
 
 class BookListView(generic.ListView):

@@ -70,11 +70,35 @@ class CreateBookInstanceForm(forms.Form):
 class CreateUserForm(forms.Form):
     IS_STAFF_VALUES = (('f', 'NO'), ('t', 'YES'))
     
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
     is_staff = forms.ChoiceField(choices=IS_STAFF_VALUES, widget=forms.Select(attrs={'class': 'form-control'}))
-    
+
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'first_name', 'last_name', 'email', 'is_staff']
+
+    def clean_username(self):
+        user = self.cleaned_data['username']
+        try:
+            User.objects.get(username=user)
+        except:
+            return self.cleaned_data['username']
+        raise forms.ValidationError("This username is already taken.")
+
+    def clean_confirm_password(self):
+        password1 = self.cleaned_data['password']
+        password2 = self.cleaned_data['confirm_password']
+        MIN_LENGTH = 8
+        if password1 != password2:
+            raise forms.ValidationError('The two password fields did not match;')
+        elif len(password1) < MIN_LENGTH or password1.isdigit() or password1.isalpha():
+            raise forms.ValidationError('Password should be at least %d characters long; \nand should be a combination of alphanumeric characters;' %MIN_LENGTH)
+        
 
 class UpdateBookStatusForm(forms.Form):
     new_status = forms.ChoiceField(choices=STATUS_VALUES, widget=forms.Select(attrs={'class': 'form-control'}))

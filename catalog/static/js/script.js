@@ -20,6 +20,22 @@ $(function () {
     search_author(e);
   });
 
+  $("#borrower_term").keyup(function(e) {
+    search_borrower(e);
+  });
+
+  $("#form_search_borrower").submit(function(e) {
+    search_borrower(e);
+  });
+
+  $("#librarian_term").keyup(function(e) {
+    search_librarian(e);
+  });
+
+  $("#form_search_librarian").submit(function(e) {
+    search_librarian(e);
+  })
+
 });
 
 function search_book(e) {
@@ -110,6 +126,75 @@ function search_author(e) {
     }
   });
 }
+
+function search_borrower(e) {
+  e.preventDefault();
+  $.ajax({
+    type: "GET",
+    url: "/catalog/users/search_borrower",
+    data: $("#form_search_borrower").serialize(),
+    success: function(data) {
+      console.log("borrower data = " + JSON.stringify(data));
+      var parsed_data = JSON.parse(data);
+      var display = "";
+      if(parsed_data.length > 0) {
+        for(var i = 0; i < parsed_data.length; i++) {
+          display +=
+            "<tr>" +
+              "<td>" + parsed_data[i].fields.last_name + ", " + parsed_data[i].fields.first_name + "</td>" +
+              "<td>" + parsed_data[i].fields.username + "</td>" +
+              "<td>" + parsed_data[i].fields.email + "</td>" + 
+              "<td>" + moment(parsed_data[i].fields.date_joined).format('MMMM DD, YYYY h:mm a') + "</td>"  
+            "</tr>";
+        }
+      } else {
+        display = "<p class='alert alert-danger'>No results found;</p>"
+      }
+
+      $("#tbody_borrower_list").html(display);
+      $(".pagination").hide()
+
+    },
+    error: function(data) {
+      console.log("Error in searching borrower = " + JSON.stringify(data))
+    }
+  });
+}
+
+function search_librarian(e) {
+  e.preventDefault();
+  $.ajax({
+    type: "GET",
+    url: "/catalog/librarians/search_librarian",
+    data: $("#form_search_librarian").serialize(),
+    success: function(data) {
+      console.log("librarian data = " + JSON.stringify(data));
+      var parsed_data = JSON.parse(data);
+      var display = "";
+      if(parsed_data.length > 0) {
+        for(var i = 0; i < parsed_data.length; i++) {
+          display +=
+            "<tr>" +
+              "<td>" + parsed_data[i].fields.last_name + ", " + parsed_data[i].fields.first_name + "</td>" +
+              "<td>" + parsed_data[i].fields.username + "</td>" +
+              "<td>" + parsed_data[i].fields.email + "</td>" + 
+              "<td>" + moment(parsed_data[i].fields.date_joined).format('MMMM DD, YYYY h:mm a') + "</td>"  
+            "</tr>";
+        }
+      } else {
+        display = "<p class='alert alert-danger'>No results found;</p>"
+      }
+
+      $("#tbody_librarian_list").html(display);
+      $(".pagination").hide()
+
+    },
+    error: function(data) {
+      console.log("Error in searching librarians = " + JSON.stringify(data))
+    }
+  });
+}
+
 
 function author_delete(id) {
   //{% url 'author-delete' author.id %}
