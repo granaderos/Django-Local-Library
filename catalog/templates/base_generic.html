@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% load static %}
+    {#% load maskurl %#}
     
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
@@ -73,9 +74,9 @@
                                                         <span class="d-none d-sm-inline font-weight-bold">Transactions</span>
                                                 </a>
                                                 <div class="dropdown-menu">
-                                                    <a class="nav-link text-truncate" href="{% url 'transaction-create' %}">New Transaction</a>
+                                                    <a class="nav-link text-truncate" href="{% url 'transaction-create' request.session.session_key %}">New Transaction</a>
                                                     <a class="nav-link text-truncate" href="{% url 'transactions' %}">Current Transactions</a>                                              
-                                                    <a class="nav-link text-truncate" href="{% url 'transaction-history' %}">History</a>                                              
+                                                    <a class="nav-link text-truncate" href="{% url 'transaction-history' request.session.session_key %}">History</a>                                              
                                                 </div>
                                             </div>     
                                         </li>

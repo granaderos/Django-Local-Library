@@ -79,7 +79,7 @@ def renew_book_librarian(request, pk):
 
 @login_required
 @permission_required('catalog.add_transaction')
-def create_new_transaction(request):
+def create_new_transaction(request, s_id):
     # trans = get_object_or_404(Transaction, pk=pk)
     form = CreateTransactionForm(request.POST or None)
     if request.method == 'POST':
@@ -148,6 +148,7 @@ def create_new_user(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             is_staff = form.cleaned_data['is_staff']
+            # hash this password
             password = form.cleaned_data['password']
             # confirm_password = form.cleaned_data['confirm_password']
 
